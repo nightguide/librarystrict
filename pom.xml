@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<modelVersion>4.0.0</modelVersion>
+<groupId>ru.strict</groupId>
+<artifactId>myproject</artifactId>
+<packaging>pom</packaging>
+<version>0.0.1</version>
+<name>myproject</name>
+<url>http://maven.apache.org</url>
+
+<modules>
+	<module>app</module>
+	<module>services</module>
+	<module>db</module>
+	<module>jstrict</module>
+</modules>
+
+<properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<jdk.version>1.8</jdk.version>
+	<plugin.compiler.version>2.5.1</plugin.compiler.version>
+	<plugin.jar.version>2.4</plugin.jar.version>
+	<plugin.dependency.version>2.5.1</plugin.dependency.version>
+	<plugin.surefire.version>2.12.4</plugin.surefire.version>
+	<plugin.war.version>3.2.0</plugin.war.version>
+</properties>
+
+<dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+	</dependencies>
+</dependencyManagement>
+
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>${plugin.compiler.version}</version>
+			<configuration>
+				<source>${jdk.version}</source>
+				<target>${jdk.version}</target>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
+</project>

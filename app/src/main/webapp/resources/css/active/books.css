@@ -1,0 +1,138 @@
+.layout_books{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+
+.row_books{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 3rem;
+}
+
+.book{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout_cover{
+    height: 22rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.wrapper_download{
+    background-color: white;
+    border-width: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    min-width: 15rem;
+}
+
+.cover{
+    max-height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+
+.layout_download{
+    display: table;
+    width: 100%;
+    visibility: hidden;
+    position: absolute;
+    background: #ea3546;
+    margin: 0;
+    padding: 0;
+    bottom: 2rem;
+}
+
+.layout_btn_download{
+    display: table-cell;
+    position: static;
+    width: 100%;
+}
+
+input.download{
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 0;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    cursor: pointer;
+}
+
+input.download:hover{
+    color: #59328f;
+}
+
+img.download{
+    display: table-cell;
+    height: 1.4rem;
+    padding: 0 1.4rem;
+    margin: 0;
+}
+
+.layout_book_presentation{
+    padding: 0.8rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.book_presentation{
+    color: #59328f;
+    font-size: 1.2rem;
+    margin: 0.4rem 0;
+}
+
+.book_title{
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.layout_pages{
+    display: flex;
+    margin: 1.4rem auto;
+}
+
+.layout_next_page{
+    display: flex;
+    align-items: center;
+    margin: auto 0.8rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    background: #f9c80e;
+    border-radius: 100px;
+}
+
+.layout_multipoints{
+    display: flex;
+    align-items: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    background: white;
+    border-radius: 100px;
+}
+
+.next_page{
+    font-size: 1.4rem;
+    margin: 0 auto;
+    text-decoration: none;
+}

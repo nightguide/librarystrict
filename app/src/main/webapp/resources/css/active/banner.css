@@ -1,0 +1,136 @@
+.layout_banner{
+    display: grid;
+    grid-template-areas: "quote quote quote quote quote img img info info info info info";
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 3rem;
+    width: 100%;
+    margin: 3rem 0;
+}
+
+.quote{
+    grid-area: quote;
+    font-size: 2.6rem;
+    font-weight: 900;
+    font-style: italic;
+    color: #59328f;
+    margin-left: 3rem;
+    quotes: "\201c" "\201d";
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.banner_image{
+    grid-area: img;
+    width: 15rem;
+    height: 15rem;
+    background-color: #59328f;
+    background-size: contain;
+    border-radius: 10rem;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.banner_image_book{
+    background-image: url(../../images/all/books.png);
+}
+
+.banner_image_author{
+    background-image: url(../../images/all/writer.png);
+}
+
+.banner_image_genre{
+    background-image: url(../../images/all/genres.png);
+}
+
+.info{
+    grid-area: info;
+    font-size: 6rem;
+    font-weight: 900;
+    font-style: italic;
+    color: #59328f;
+    margin: auto auto;
+}
+
+.info_layout_genre{
+    display: flex;
+    flex-direction: column;
+}
+
+.info_genre{
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #59328f;
+    margin: auto auto;
+}
+
+.info_img_genre{
+    width: 15rem;
+    margin: 0 auto;
+}
+
+/*__________ Authors __________*/
+.info_author{
+    display: flex;
+    flex-direction: row;
+}
+
+.info_authors{
+    display: flex;
+    flex-direction: column;
+}
+
+.info_authors_count{
+    color: #f9c80e;
+    margin: 0;
+    padding: 0;
+}
+
+.info_author_title1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.info_authors_country{
+    color: #f9c80e;
+    margin: 0;
+    padding: 0;
+}
+
+.info_author_title2{
+    font-style: normal;
+    color: #59328f;
+    font-weight: 500;
+    font-size: 1.8rem;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.separator_banner{
+    width: 0.8rem;
+    background: #59328f;
+    transform: rotate(25deg);
+    margin: 0 4rem;
+    box-shadow: #f9c80e 0.4rem 0.4rem;
+}
+/*__________ End Authors __________*/
+
+/*__________ Books __________*/
+.info_books1{
+    color: #f9c80e;
+}
+
+.info_books2{
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.4rem;
+    margin-left: 0.6rem;
+}
+/*__________ End Books __________*/
