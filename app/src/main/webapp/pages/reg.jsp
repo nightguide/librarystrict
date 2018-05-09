@@ -16,7 +16,7 @@
         <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo"/>
         <div class="layout_main">
             <p class="title">Регистрация</p>
-            <form class="layout_input_fields">
+            <form class="layout_input_fields" action="\registration" method="post">
                 <input type="text" name="tf_login" placeholder="Введите логин" class="input_text"/>
                 <input type="text" name="tf_email" placeholder="Введите email" class="input_text"/>
                 <input type="password" name="tf_password" placeholder="Введите пароль" class="input_text"/>
@@ -27,7 +27,8 @@
                 <div class="layout_buttons">
                     <input type="submit" name="btn_signin" value="зарегистрироваться" class="buttons"/>
                     <div class="separator"></div>
-                    <input type="submit" name="btn_reg" value="назад" class="buttons"/>
+                    <input type="button" name="btn_reg" value="назад" class="buttons"
+                            onclick="window.location.href='<%=request.getContextPath()%>/auth'"/>
                 </div>
             </form>
         </div>
