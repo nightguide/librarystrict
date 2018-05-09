@@ -1,0 +1,213 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container{
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+.header{
+    display: grid;
+    grid-template-areas:
+    "logo logo logo . . . . . . profile profile profile";
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 2rem;
+    margin: 0 5rem;
+}
+
+.main{
+    display: grid;
+    grid-template-areas: 
+    "search search search search search search search search search search search search"
+    "menu menu menu menu menu menu menu menu menu menu menu menu"
+    "content content content content content content content content content content content content";
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 2rem;
+    margin: 0 5rem;
+    width: 100%;
+    padding-bottom: 5rem;
+}
+
+/*__________ Header __________*/
+.logo{
+    grid-area: logo;
+    height: 5rem;
+    margin-top: 2rem;
+}
+
+.layout_profile{
+    grid-area: profile;
+    text-align: right;
+}
+
+.profile{
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: #f9c80e;
+    overflow: hidden;
+}
+
+.layout_profile_image{
+    width: 5rem;
+    display: inline-block;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.profile_image{
+    width: 100%;
+}
+
+.layout_profile_name{
+    display: inline-flex;
+    align-items: center;
+    color: #59328f;
+}
+
+.profile_name{
+    display: inline-block;
+    font-size: 1.4rem;
+    margin: 0 1rem;
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: inherit;
+}
+
+.submenu_profile{
+    visibility: hidden;
+    display: none;
+    list-style: none;
+    text-align: left;
+    padding: 0.8rem 6rem 0.8rem 1.6rem;
+    background-color: white;
+    position: absolute;
+    top: 70%;
+    right: 0;
+    border-color: #59328f;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+}
+
+.arrow {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 0.2rem solid;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-top-color: inherit;
+    border-left-color: inherit;
+    transform: rotate(-135deg);
+    margin-bottom: 0.8rem;
+    cursor: inherit;
+}
+
+.layout_profile_name:hover{
+    color: #ea3546;
+    cursor: pointer;
+}
+
+.submenu_profile li{
+    margin-bottom: 0.6rem;
+}
+/*__________ End Header __________*/
+
+/*__________ Search __________*/
+.layout_search{
+    grid-area: search;
+    display: flex;
+    flex-direction: row;
+    margin-top: 2.6rem;
+    border-bottom-style: solid;
+    border-bottom-width: 0.3rem;
+    border-color: #59328f;
+}
+
+.search{
+    width: 100%;
+    border-bottom-width: 0;
+}
+
+.action_search{
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    padding: 0;
+    background: url(../../images/all/search.png) no-repeat 0 0;
+    background-size: contain;
+    cursor: pointer;
+}
+/*__________ End Search __________*/
+
+/*__________ Content __________*/
+.content{
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.layout_path{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 0 3rem 0;
+}
+
+.path{
+    color: #59328f;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+/*__________ End Content __________*/
+
+/*__________ Footer __________*/
+.footer{
+    width: 100%;
+    background-color: #59328f;
+}
+
+.footer .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: row;
+    align-items: center;
+    width: 100%;
+    background-color: #59328f;
+    padding: 2.8rem 0;
+}
+
+.label_contact{
+    font-weight: 700;
+}
+
+.label_security, .label_contact{
+    font-size: 1.4rem;
+    color: #f9c80e;
+}
+
+.layout_contact{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: auto;
+}
+
+img.contact_item{
+    width: 4.6rem;
+    height: 4.6rem;
+    margin-left: 1.6rem;
+}
+/*__________ End Footer __________*/
