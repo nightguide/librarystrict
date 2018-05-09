@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <style>
-        <%@include file="../resources/css/core.css"%>
-        <%@include file="../resources/css/pre/common_auth_reg.css"%>
-        <%@include file="../resources/css/pre/reg.css"%>
+        <%@include file="../../resources/css/core.css"%>
+        <%@include file="../../resources/css/pre/common_auth_reg.css"%>
+        <%@include file="../../resources/css/pre/reg.css"%>
     </style>
     <title>Регистрация</title>
 </head>
