@@ -1,4 +1,4 @@
-package ru.strict.controllers;
+package ru.strict.controllers.registration;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
