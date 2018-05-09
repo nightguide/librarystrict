@@ -1,27 +1,32 @@
+<%@page contentType="text/html; charset=utf-8" language="java"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="resources/css/common.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/popmenu.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/active/common_active.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/active/book.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/active/banner.css" media="all"/>
-    <script src="resources/libs/jquery-3.3.1.js"></script>
-    <script src="resources/scripts/common_active.js"></script>
-    <script src="resources/scripts/book.js"></script>
+    <style>
+        <%@include file="../resources/css/core.css"%>
+        <%@include file="../resources/css/popmenu.css"%>
+        <%@include file="../resources/css/active/common_active.css"%>
+        <%@include file="../resources/css/active/book.css"%>
+        <%@include file="../resources/css/active/banner.css"%>
+    </style>
+    <script type="text/javascript">
+        <%@include file="../resources/libs/jquery-3.3.1.js"%>
+        <%@include file="../resources/scripts/common_active.js"%>
+        <%@include file="../resources/scripts/book.js"%>
+    </script>
     <title>Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science</title>
 </head>
 
 <body>
+    <% request.setCharacterEncoding("UTF-8"); %>
+
     <header class="header container">
         <a href="#">
-            <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo" />
+            <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo"/>
         </a>
         <div class="layout_profile" style="position: relative">
             <div class="profile">
                 <div class="layout_profile_image">
-                    <img class="profile_image" src="profiles/konstantin/face.jpg" />
+                    <img class="profile_image" src="profiles/konstantin/face.jpg"/>
                 </div>
                 <div class="layout_profile_name">
                     <a class="profile_name">Константин К.</a>
@@ -38,8 +43,9 @@
     </header>
     <main class="main container">
         <form class="layout_search">
-            <input class="search input_text" type="text" name="tfSearch" placeholder="Введите название книги, автора или жанра" />
-            <input class="action_search" type="submit" value="" />
+            <input class="search input_text" type="text" name="tfSearch"
+                   placeholder="Введите название книги, автора или жанра"/>
+            <input class="action_search" type="submit" value=""/>
         </form>
         <nav class="layout_menu">
             <ul>
@@ -75,7 +81,8 @@
             <div class="layout_main">
                 <div class="layout_book">
                     <div class="layout_cover">
-                        <img class="cover" src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
+                        <img class="cover"
+                             src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
                     </div>
                     <div class="layout_book_info">
                         <p class="title">Структуры данных и алгоритмы в Java. Классика Computers Science</p>
@@ -103,23 +110,39 @@
                         </div>
                         <div class="layout_age"><span class="age">12+</span></div>
                         <span class="layout_download">
-                            <div class="layout_inner_download">
-                                <p class="download_title">Скачать: </p>
-                                <a class="link_download" href="#"><img class="img_download" src="resources/images/all/pdf.png"/></a>
-                                <a class="link_download" href="#"><img class="img_download" src="resources/images/all/mp3.png"/></a>
-                                <a class="link_download" href="#"><img class="img_download" src="resources/images/all/fb2.png"/></a>
-                            </div>
-                        </span>
+                                <div class="layout_inner_download">
+                                    <p class="download_title">Скачать: </p>
+                                    <a class="link_download" href="#"><img class="img_download"
+                                                                           src="resources/images/all/pdf.png"/></a>
+                                    <a class="link_download" href="#"><img class="img_download"
+                                                                           src="resources/images/all/mp3.png"/></a>
+                                    <a class="link_download" href="#"><img class="img_download"
+                                                                           src="resources/images/all/fb2.png"/></a>
+                                </div>
+                            </span>
                     </div>
                 </div>
                 <div class="layout_book_description">
                     <p class="discription_title">Описание</p>
-                    <p class="discription_content">Второе издание одной из самых авторитетных книг по программированию посвящено использованию структур данных и алгоритмов. Алгоритмы — это основа программирования, определяющая, каким образом разрабатываемое программное обеспечение будет использовать структуры данных. На четких и простых программных примерах автор объясняет эту сложную тему, предлагая читателям написать собственные программы и на практике освоить полученные знания. Рассматриваемые примеры написаны на языке Java, хотя для усвоения материала читателю не обязательно хорошо знать его — достаточно владеть любым языком программирования, например C++. Первая часть книги представляет собой введение в алгоритмизацию и структуры данных, а также содержит изложение основ объектно-ориентированного программирования. Следующие части посвящены различным алгоритмам и структурам данных, рассматриваемым от простого к сложному: сортировка, абстрактные типы данных, связанные списки, рекурсия, древовидные структуры данных, хеширование, пирамиды, графы. Приводятся рекомендации по использованию алгоритмов и выбору той или иной структуры данных в зависимости от поставленной задачи.</p>
+                    <p class="discription_content">Второе издание одной из самых авторитетных книг по программированию
+                        посвящено использованию структур данных и алгоритмов. Алгоритмы — это основа программирования,
+                        определяющая, каким образом разрабатываемое программное обеспечение будет использовать структуры
+                        данных. На четких и простых программных примерах автор объясняет эту сложную тему, предлагая
+                        читателям написать собственные программы и на практике освоить полученные знания. Рассматриваемые
+                        примеры написаны на языке Java, хотя для усвоения материала читателю не обязательно хорошо знать его
+                        — достаточно владеть любым языком программирования, например C++. Первая часть книги представляет
+                        собой введение в алгоритмизацию и структуры данных, а также содержит изложение основ
+                        объектно-ориентированного программирования. Следующие части посвящены различным алгоритмам и
+                        структурам данных, рассматриваемым от простого к сложному: сортировка, абстрактные типы данных,
+                        связанные списки, рекурсия, древовидные структуры данных, хеширование, пирамиды, графы. Приводятся
+                        рекомендации по использованию алгоритмов и выбору той или иной структуры данных в зависимости от
+                        поставленной задачи.</p>
                 </div>
                 <div class="layout_comment">
                     <form class="layout_comment_write">
-                        <input class="comment_write input_text" type="text" name="tfSearch" placeholder="Введите комментарий" />
-                        <input class="action_comment_write" type="submit" value="" />
+                        <input class="comment_write input_text" type="text" name="tfSearch"
+                               placeholder="Введите комментарий"/>
+                        <input class="action_comment_write" type="submit" value=""/>
                     </form>
                     <div class="comments">
                         <article class="comment">
@@ -135,7 +158,8 @@
                             </div>
                             <p class="comment_yeartime">20.01.2018<span class="comment_time">11:30</span></p>
                             <div class="layout_comment_content">
-                                <p class="comment_content">Я, конечно, все понимаю...но эта книга уже сильно устарела. Качество ее на высоте, отпучатано прекрасно, но...</p>
+                                <p class="comment_content">Я, конечно, все понимаю...но эта книга уже сильно устарела.
+                                    Качество ее на высоте, отпучатано прекрасно, но...</p>
                                 <span><input class="comment_show_more" type="button" value="Читать полностью"/></span>
                             </div>
                         </article>
@@ -153,7 +177,10 @@
                             </div>
                             <p class="comment_yeartime">28.02.2018<span class="comment_time">15:21</span></p>
                             <div class="layout_comment_content">
-                                <p class="comment_content">О чем можно говорить? Издательство известное, на руский язык переводит книгу давно. Много изданий и переизданий этого труда было. Открываем первые страницы после оглавления. В оригинале автор некторые понятие объясняет иначе, еже ли мы читаем в переводе</p>
+                                <p class="comment_content">О чем можно говорить? Издательство известное, на руский язык
+                                    переводит книгу давно. Много изданий и переизданий этого труда было. Открываем первые
+                                    страницы после оглавления. В оригинале автор некторые понятие объясняет иначе, еже ли мы
+                                    читаем в переводе</p>
                                 <span><input class="comment_show_more" type="button" value="Читать полностью"/></span>
                             </div>
                         </article>
@@ -189,7 +216,8 @@
                             </div>
                             <p class="comment_yeartime">20.01.2018<span class="comment_time">11:30</span></p>
                             <div class="layout_comment_content">
-                                <p class="comment_content">Я, конечно, все понимаю...но эта книга уже сильно устарела. Качество ее на высоте, отпучатано прекрасно, но...</p>
+                                <p class="comment_content">Я, конечно, все понимаю...но эта книга уже сильно устарела.
+                                    Качество ее на высоте, отпучатано прекрасно, но...</p>
                                 <span><input class="comment_show_more" type="button" value="Читать полностью"/></span>
                             </div>
                         </article>
@@ -207,7 +235,10 @@
                             </div>
                             <p class="comment_yeartime">28.02.2018<span class="comment_time">15:21</span></p>
                             <div class="layout_comment_content">
-                                <p class="comment_content">О чем можно говорить? Издательство известное, на руский язык переводит книгу давно. Много изданий и переизданий этого труда было. Открываем первые страницы после оглавления. В оригинале автор некторые понятие объясняет иначе, еже ли мы читаем в переводе</p>
+                                <p class="comment_content">О чем можно говорить? Издательство известное, на руский язык
+                                    переводит книгу давно. Много изданий и переизданий этого труда было. Открываем первые
+                                    страницы после оглавления. В оригинале автор некторые понятие объясняет иначе, еже ли мы
+                                    читаем в переводе</p>
                                 <span><input class="comment_show_more" type="button" value="Читать полностью"/></span>
                             </div>
                         </article>
@@ -242,7 +273,8 @@
                             </div>
                             <p class="comment_yeartime">20.01.2018<span class="comment_time">11:30</span></p>
                             <div class="layout_comment_content">
-                                <p class="comment_content">Я, конечно, все понимаю...но эта книга уже сильно устарела. Качество ее на высоте, отпучатано прекрасно, но...</p>
+                                <p class="comment_content">Я, конечно, все понимаю...но эта книга уже сильно устарела.
+                                    Качество ее на высоте, отпучатано прекрасно, но...</p>
                                 <span><input class="comment_show_more" type="button" value="Читать полностью"/></span>
                             </div>
                         </article>
@@ -260,7 +292,10 @@
                             </div>
                             <p class="comment_yeartime">28.02.2018<span class="comment_time">15:21</span></p>
                             <div class="layout_comment_content">
-                                <p class="comment_content">О чем можно говорить? Издательство известное, на руский язык переводит книгу давно. Много изданий и переизданий этого труда было. Открываем первые страницы после оглавления. В оригинале автор некторые понятие объясняет иначе, еже ли мы читаем в переводе</p>
+                                <p class="comment_content">О чем можно говорить? Издательство известное, на руский язык
+                                    переводит книгу давно. Много изданий и переизданий этого труда было. Открываем первые
+                                    страницы после оглавления. В оригинале автор некторые понятие объясняет иначе, еже ли мы
+                                    читаем в переводе</p>
                                 <span><input class="comment_show_more" type="button" value="Читать полностью"/></span>
                             </div>
                         </article>
@@ -293,13 +328,13 @@
             <div class="layout_contact">
                 <p class="label_contact">Контакты со мной</p>
                 <a href="#">
-                    <img class="contact_item" src="resources/images/all/mail.png" />
+                    <img class="contact_item" src="resources/images/all/mail.png"/>
                 </a>
                 <a href="#">
-                    <img class="contact_item" src="resources/images/all/vk.png" />
+                    <img class="contact_item" src="resources/images/all/vk.png"/>
                 </a>
                 <a href="#">
-                    <img class="contact_item" src="resources/images/all/github.png" />
+                    <img class="contact_item" src="resources/images/all/github.png"/>
                 </a>
             </div>
         </div>

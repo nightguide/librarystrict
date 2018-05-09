@@ -1,27 +1,32 @@
+<%@page contentType="text/html; charset=utf-8" language="java"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="resources/css/common.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/popmenu.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/active/common_active.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/active/authors.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/active/banner.css" media="all"/>
-    <script src="resources/libs/jquery-3.3.1.js"></script>
-    <script src="resources/scripts/common_active.js"></script>
-    <script src="resources/scripts/authors.js"></script>
+    <style>
+        <%@include file="../resources/css/core.css"%>
+        <%@include file="../resources/css/popmenu.css"%>
+        <%@include file="../resources/css/active/common_active.css"%>
+        <%@include file="../resources/css/active/authors.css"%>
+        <%@include file="../resources/css/active/banner.css"%>
+    </style>
+    <script type="text/javascript">
+        <%@include file="../resources/libs/jquery-3.3.1.js"%>
+        <%@include file="../resources/scripts/common_active.js"%>
+        <%@include file="../resources/scripts/authors.js"%>
+    </script>
     <title>Авторы</title>
 </head>
 
 <body>
+    <% request.setCharacterEncoding("UTF-8"); %>
+
     <header class="header container">
         <a href="#">
-            <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo" />
+            <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo"/>
         </a>
         <div class="layout_profile" style="position: relative">
             <div class="profile">
                 <div class="layout_profile_image">
-                    <img class="profile_image" src="profiles/konstantin/face.jpg" />
+                    <img class="profile_image" src="profiles/konstantin/face.jpg"/>
                 </div>
                 <div class="layout_profile_name">
                     <a class="profile_name">Константин К.</a>
@@ -38,8 +43,9 @@
     </header>
     <main class="main container">
         <form class="layout_search">
-            <input class="search input_text" type="text" name="tfSearch" placeholder="Введите название книги, автора или жанра" />
-            <input class="action_search" type="submit" value="" />
+            <input class="search input_text" type="text" name="tfSearch"
+                   placeholder="Введите название книги, автора или жанра"/>
+            <input class="action_search" type="submit" value=""/>
         </form>
         <nav class="layout_menu">
             <ul>
@@ -219,13 +225,13 @@
             <div class="layout_contact">
                 <p class="label_contact">Контакты со мной</p>
                 <a href="#">
-                    <img class="contact_item" src="resources/images/all/mail.png" />
+                    <img class="contact_item" src="resources/images/all/mail.png"/>
                 </a>
                 <a href="#">
-                    <img class="contact_item" src="resources/images/all/vk.png" />
+                    <img class="contact_item" src="resources/images/all/vk.png"/>
                 </a>
                 <a href="#">
-                    <img class="contact_item" src="resources/images/all/github.png" />
+                    <img class="contact_item" src="resources/images/all/github.png"/>
                 </a>
             </div>
         </div>
