@@ -17,6 +17,6 @@ public class AuthenticationController extends HttpServlet{
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.getRequestDispatcher("pages/books/index.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/books");
     }
 }

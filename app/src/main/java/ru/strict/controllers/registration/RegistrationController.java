@@ -17,6 +17,6 @@ public class RegistrationController extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.getRequestDispatcher("pages/authentication/index.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/auth");
     }
 }
