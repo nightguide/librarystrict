@@ -13,7 +13,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 <parent>
 	<groupId>ru.strict</groupId>
-	<artifactId>myproject</artifactId>
+	<artifactId>libraryStrict</artifactId>
 	<version>0.0.1</version>
 	<relativePath>../pom.xml</relativePath>
 </parent>
