@@ -32,15 +32,15 @@
 }
 
 .banner_image_book{
-    background-image: url(/resources/images/all/books.png);
+    background-image: url(/resources/images/png/books.png);
 }
 
 .banner_image_author{
-    background-image: url(/resources/images/all/writer.png);
+    background-image: url(/resources/images/png/writer.png);
 }
 
 .banner_image_genre{
-    background-image: url(/resources/images/all/genres.png);
+    background-image: url(/resources/images/png/genres.png);
 }
 
 .info{
