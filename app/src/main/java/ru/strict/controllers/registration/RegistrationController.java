@@ -1,22 +1,24 @@
 package ru.strict.controllers.registration;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import java.io.IOException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-@WebServlet("/registration")
-public class RegistrationController extends HttpServlet {
+@Controller
+public class RegistrationController{
 
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.getRequestDispatcher("pages/registration/index.jsp").forward(request, response);
+    @RequestMapping(value="/registration", method=RequestMethod.GET)
+    public ModelAndView index(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("registration/index");
+        return model;
     }
 
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        response.sendRedirect(request.getContextPath() + "/auth");
+    @RequestMapping(value="/registration", method=RequestMethod.POST)
+    public ModelAndView signUp(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("redirect:/auth");
+        return model;
     }
 }

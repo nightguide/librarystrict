@@ -16,7 +16,7 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value="/auth", method=RequestMethod.POST)
-    public ModelAndView authorize(){
+    public ModelAndView signIn(){
         ModelAndView model = new ModelAndView();
         model.setViewName("redirect:/books");
         return model;

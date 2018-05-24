@@ -1,17 +1,17 @@
 package ru.strict.controllers.authors;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-@WebServlet("/authors")
-public class AuthorsController extends HttpServlet {
+@Controller
+public class AuthorsController {
 
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.getRequestDispatcher("pages/authors/index.jsp").forward(request, response);
+    @RequestMapping(value="/authors", method= RequestMethod.GET)
+    public ModelAndView index(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("authors/index");
+        return model;
     }
 }
