@@ -15,13 +15,10 @@ public class AuthenticationController {
         return model;
     }
 
-    /*@Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        request.getRequestDispatcher("pages/authentication/index.jsp").forward(request, response);
+    @RequestMapping(value="/auth", method=RequestMethod.POST)
+    public ModelAndView authorize(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("redirect:/books");
+        return model;
     }
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        response.sendRedirect(request.getContextPath() + "/books");
-    }*/
 }
