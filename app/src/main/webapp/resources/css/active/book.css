@@ -97,9 +97,9 @@ a.info_content:hover{
     width: 2rem;
     height: 2rem;
     cursor: pointer;
-    background: url(../../images/all/star.png) no-repeat center / contain,
-                url(../../images/all/star_fill.png) no-repeat center / 0 0,
-                url(../../images/all/star_fill.png) no-repeat center / 0 0;
+    background: url(../../images/png/star.png) no-repeat center / contain,
+                url(../../images/png/star_fill.png) no-repeat center / 0 0,
+                url(../../images/png/star_fill.png) no-repeat center / 0 0;
 }
 
 .rating-count input:first-child {
@@ -107,18 +107,18 @@ a.info_content:hover{
 }
 
 .rating-count input + label {
-    background-image: url(../../images/all/star_fill.png);
+    background-image: url(../../images/png/star_fill.png);
 }
 
 .rating-count label:hover ~ label,
 .rating-count:not(:hover) input:not(:first-child):checked + label ~ label:not(:hover),
 .rating-count:not(:hover) input:first-child:checked ~ label:not(:hover) {
-    background-image: url(../../images/all/star.png);
+    background-image: url(../../images/png/star.png);
 }
 
 .rating-count input + label:hover,
 .rating-count:not(:hover) input:focus + label {
-    background-image: url(../../images/all/star_fill.png);
+    background-image: url(../../images/png/star_fill.png);
 }
 
 .separator_rating{
@@ -213,7 +213,7 @@ a.info_content:hover{
     height: 2rem;
     border: none;
     padding: 0;
-    background: url(../../images/all/send.png) no-repeat 0 0;
+    background: url(../../images/png/send.png) no-repeat 0 0;
     background-size: contain;
     cursor: pointer;
 }
@@ -263,11 +263,11 @@ a.info_content:hover{
 }
 
 .star_empty{
-    background: url(../../images/all/star.png) no-repeat center / contain;
+    background: url(../../images/png/star.png) no-repeat center / contain;
 }
 
 .star_fill{
-    background: url(../../images/all/star_fill.png) no-repeat center / contain;
+    background: url(../../images/png/star_fill.png) no-repeat center / contain;
 }
 
 .comment_yeartime{

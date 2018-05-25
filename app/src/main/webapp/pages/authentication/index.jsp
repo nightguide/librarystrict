@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=utf-8" language="java" %>
+<%@page contentType="text/html; charset=UTF-8" language="java" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <style>
@@ -13,7 +13,7 @@
     <% request.setCharacterEncoding("UTF-8"); %>
 
     <div class="content">
-        <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo"/>
+        <img class="logo" src="resources/images/png/Logo_LibraryStrict.png" alt="logo"/>
         <div class="layout_main">
             <p class="title">Авторизация</p>
             <form class="layout_input_fields" action="\auth" method="post">

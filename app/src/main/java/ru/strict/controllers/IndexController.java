@@ -1,4 +1,4 @@
-package ru.strict.controllers.book;
+package ru.strict.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class BookController {
+public class IndexController {
 
-    @RequestMapping(value="/book", method= RequestMethod.GET)
+    @RequestMapping(value={"/", "/index"}, method=RequestMethod.GET)
     public ModelAndView index(){
         ModelAndView model = new ModelAndView();
-        model.setViewName("book/index");
+        model.setViewName("redirect:/auth");
         return model;
     }
 }

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:forward page="/auth"></jsp:forward>
+<jsp:forward page="/index"></jsp:forward>
 <html>
 <head>
     <title>redirect</title>

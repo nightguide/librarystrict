@@ -1,7 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" %>
-<head>
-
-</head>
+<%@page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -9,7 +6,7 @@
 
 <header class="header container">
     <a href="#">
-        <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo"/>
+        <img class="logo" src="resources/images/png/Logo_LibraryStrict.png" alt="logo"/>
     </a>
     <div class="layout_profile" style="position: relative">
         <div class="profile">

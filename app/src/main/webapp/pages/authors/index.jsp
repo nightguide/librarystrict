@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=utf-8" language="java"%>
+<%@page contentType="text/html; charset=UTF-8" language="java"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <style>
@@ -17,10 +17,20 @@
 </head>
 
 <body>
-    <% request.setCharacterEncoding("UTF-8"); %>
-    <%@include file="header.jsp"%>
-    <%@include file="content.jsp"%>
-    <%@include file="footer.jsp"%>
+    <%
+        request.setCharacterEncoding("UTF-8");
+    %>
+
+    <%@include file="../shared/header.jsp"%>
+
+    <main class="main container">
+        <%@include file="../shared/components/search.jsp"%>
+        <%@include file="../shared/components/menu.jsp"%>
+
+        <%@include file="content.jsp"%>
+    </main>
+
+    <%@include file="../shared/footer.jsp"%>
 </body>
 
 </html>

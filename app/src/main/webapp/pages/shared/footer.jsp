@@ -1,6 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" %>
-<head>
-</head>
+<%@page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -12,13 +10,13 @@
         <div class="layout_contact">
             <p class="label_contact">Контакты со мной</p>
             <a href="#">
-                <img class="contact_item" src="resources/images/all/mail.png"/>
+                <img class="contact_item" src="resources/images/png/mail.png"/>
             </a>
             <a href="#">
-                <img class="contact_item" src="resources/images/all/vk.png"/>
+                <img class="contact_item" src="resources/images/png/vk.png"/>
             </a>
             <a href="#">
-                <img class="contact_item" src="resources/images/all/github.png"/>
+                <img class="contact_item" src="resources/images/png/github.png"/>
             </a>
         </div>
     </div>
