@@ -43,11 +43,11 @@
                                 <div class="layout_inner_download">
                                     <p class="download_title">Скачать: </p>
                                     <a class="link_download" href="#"><img class="img_download"
-                                                                           src="resources/images/all/pdf.png"/></a>
+                                                                           src="resources/images/png/pdf.png"/></a>
                                     <a class="link_download" href="#"><img class="img_download"
-                                                                           src="resources/images/all/mp3.png"/></a>
+                                                                           src="resources/images/png/mp3.png"/></a>
                                     <a class="link_download" href="#"><img class="img_download"
-                                                                           src="resources/images/all/fb2.png"/></a>
+                                                                           src="resources/images/png/fb2.png"/></a>
                                 </div>
                             </span>
             </div>

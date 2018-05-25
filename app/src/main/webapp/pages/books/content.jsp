@@ -20,7 +20,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -41,7 +41,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -61,7 +61,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -82,7 +82,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -103,7 +103,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -126,7 +126,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -147,7 +147,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -168,7 +168,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -189,7 +189,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>
@@ -210,7 +210,7 @@
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
                                                                                  value="скачать"/></span>
-                                        <img class="download" src="resources/images/all/download.png"/>
+                                        <img class="download" src="resources/images/png/download.png"/>
                                     </div>
                                 </span>
                 </a>

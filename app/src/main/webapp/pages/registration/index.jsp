@@ -13,7 +13,7 @@
     <% request.setCharacterEncoding("UTF-8"); %>
 
     <div class="content">
-        <img class="logo" src="resources/images/all/Logo_LibraryStrict.png" alt="logo"/>
+        <img class="logo" src="resources/images/png/Logo_LibraryStrict.png" alt="logo"/>
         <div class="layout_main">
             <p class="title">Регистрация</p>
             <form class="layout_input_fields" action="\registration" method="post">

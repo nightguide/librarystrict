@@ -9,6 +9,6 @@
     <div class="banner_image banner_image_genre"></div>
     <div class="info info_layout_genre">
         <p class="info_genre"> Выбери свой жанр</p>
-        <img class="info_img_genre" src="resources/images/all/like.png"/>
+        <img class="info_img_genre" src="resources/images/png/like.png"/>
     </div>
 </div>
