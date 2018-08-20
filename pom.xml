@@ -3,42 +3,78 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-<modelVersion>4.0.0</modelVersion>
-<groupId>ru.strict</groupId>
-<artifactId>libraryStrict</artifactId>
-<packaging>pom</packaging>
-<version>0.0.1</version>
-<name>libraryStrict</name>
-<url>http://maven.apache.org</url>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ru.strict</groupId>
+	<artifactId>libraryStrict</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+	<name>libraryStrict</name>
+	<url>http://maven.apache.org</url>
 
-<modules>
-	<module>app</module>
-	<module>services</module>
-	<module>db</module>
-	<module>jstrict</module>
-</modules>
+	<modules>
+		<module>app</module>
+		<module>services</module>
+		<module>db</module>
+		<module>jstrict</module>
+	</modules>
 
-<properties>
-	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<jdk.version>1.8</jdk.version>
-	<plugin.compiler.version>2.5.1</plugin.compiler.version>
-	<plugin.jar.version>2.4</plugin.jar.version>
-	<plugin.dependency.version>2.5.1</plugin.dependency.version>
-	<plugin.surefire.version>2.12.4</plugin.surefire.version>
-	<plugin.war.version>3.2.0</plugin.war.version>
-</properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.8</jdk.version>
+		<plugin.compiler.version>2.5.1</plugin.compiler.version>
+		<plugin.jar.version>2.4</plugin.jar.version>
+		<plugin.dependency.version>2.5.1</plugin.dependency.version>
+		<plugin.surefire.version>2.12.4</plugin.surefire.version>
+		<plugin.war.version>3.2.0</plugin.war.version>
+	</properties>
 
-<build>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>${plugin.compiler.version}</version>
-			<configuration>
-				<source>${jdk.version}</source>
-				<target>${jdk.version}</target>
-			</configuration>
-		</plugin>
-	</plugins>
-</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>ru.strict</groupId>
+				<artifactId>services</artifactId>
+				<version>0.0.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ru.strict</groupId>
+				<artifactId>jutils</artifactId>
+				<version>0.1.14</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.strict</groupId>
+				<artifactId>jfile</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.strict</groupId>
+				<artifactId>jpatterns</artifactId>
+				<version>0.1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.strict</groupId>
+				<artifactId>jdb-core</artifactId>
+				<version>0.1.12</version>
+			</dependency>
+			<dependency>
+				<groupId>ru.strict</groupId>
+				<artifactId>jdb-spring</artifactId>
+				<version>0.1.7</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${plugin.compiler.version}</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -34,7 +34,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     <!-- Указываем, в каком пакете искать конфигурационные классы -->
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>ru.strict.configs</param-value>
+      <param-value>ru.strict.app.configs</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

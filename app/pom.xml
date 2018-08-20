@@ -2,121 +2,106 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-<modelVersion>4.0.0</modelVersion>
-<groupId>ru.strict</groupId>
-<artifactId>app</artifactId>
-<packaging>war</packaging>
-<version>0.0.1</version>
-<name>app</name>
-<url>http://maven.apache.org</url>
-
-<parent>
-	<groupId>ru.strict</groupId>
-	<artifactId>libraryStrict</artifactId>
-	<version>0.0.1</version>
-	<relativePath>../pom.xml</relativePath>
-</parent>
-
-<repositories>
-	<repository>
-		<id>repo1.maven.org</id>
-		<url>http://repo1.maven.org/maven2</url>
-	</repository>
-</repositories>
-
-<properties>
-	<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
-	<jsp-api.version>2.2</jsp-api.version>
-	<spring.version>5.0.5.RELEASE</spring.version>
-</properties>
-
-<dependencies>
-	<dependency>
+	<parent>
 		<groupId>ru.strict</groupId>
-		<artifactId>services</artifactId>
+		<artifactId>libraryStrict</artifactId>
 		<version>0.0.1</version>
-	</dependency>
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>${javax.servlet-api.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>javax.servlet.jsp</groupId>
-		<artifactId>jsp-api</artifactId>
-		<version>${jsp-api.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-core</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-web</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-webmvc</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>junit</groupId>
-    	<artifactId>junit</artifactId>
-    	<version>4.12</version>
-		<scope>test</scope>
-	</dependency>
-</dependencies>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 
-<build>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>${plugin.compiler.version}</version>
-			<configuration>
-				<source>${jdk.version}</source>
-				<target>${jdk.version}</target>
-			</configuration>
-		</plugin>
-		<plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-war-plugin</artifactId>
-	        <version>${plugin.war.version}</version>
-	        <configuration>
-	          <archive>
-	            <manifest>
-	              <addClasspath>true</addClasspath>
-	              <classpathPrefix>libs/</classpathPrefix>
-	            </manifest>
-	          </archive>
-	        </configuration>
-	    </plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-dependency-plugin</artifactId>
-			<version>${plugin.dependency.version}</version>
+	<artifactId>app</artifactId>
+	<version>0.0.1</version>
+	<packaging>war</packaging>
+	<name>app</name>
+	<url>http://maven.apache.org</url>
 
-			<configuration>
-				<outputDirectory>${project.build.directory}/libs/</outputDirectory>
-				<overWriteReleases>false</overWriteReleases>
-				<overWriteSnapshots>false</overWriteSnapshots>
-				<overWriteIfNewer>true</overWriteIfNewer>
-			</configuration>
+	<properties>
+		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+		<jsp-api.version>2.2</jsp-api.version>
+		<spring.version>5.0.5.RELEASE</spring.version>
+	</properties>
 
-			<executions>
-				<execution>
-					<id>copy-dependencies</id>
-					<phase>package</phase>
-					<goals>
-						<goal>copy-dependencies</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-	</plugins>
-</build>
+	<dependencies>
+		<dependency>
+			<groupId>ru.strict</groupId>
+			<artifactId>services</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${plugin.compiler.version}</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${plugin.war.version}</version>
+				<configuration>
+				  <archive>
+					<manifest>
+					  <addClasspath>true</addClasspath>
+					  <classpathPrefix>libs/</classpathPrefix>
+					</manifest>
+				  </archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${plugin.dependency.version}</version>
+
+				<configuration>
+					<outputDirectory>${project.build.directory}/libs/</outputDirectory>
+					<overWriteReleases>false</overWriteReleases>
+					<overWriteSnapshots>false</overWriteSnapshots>
+					<overWriteIfNewer>true</overWriteIfNewer>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
