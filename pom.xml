@@ -35,6 +35,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 				<artifactId>services</artifactId>
 				<version>0.0.1</version>
 			</dependency>
+			<dependency>
+				<groupId>ru.strict</groupId>
+				<artifactId>db</artifactId>
+				<version>0.0.1</version>
+			</dependency>
 
 			<dependency>
 				<groupId>ru.strict</groupId>
