@@ -12,12 +12,12 @@ import ru.strict.utils.UtilHashCode;
  * Специальный класс, который предоставляет данные пользователя для SpringSecurity.
  * Производит загрузку пользователей из базы данных
  */
-@Service
+//@Service
 public class StrictUserManager {
 
 	private HashMap<String, DtoUserSecurity> users;
 
-	@Autowired
+	//@Autowired
 	public StrictUserManager(RepositoryUserSecurity rUser) {
 		users = new HashMap();
 		loadUsers(rUser);
