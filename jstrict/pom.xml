@@ -21,5 +21,6 @@
         <module>jutils</module>
         <module>jdb</module>
         <module>jfile</module>
+        <module>jpatterns</module>
     </modules>
 </project>
