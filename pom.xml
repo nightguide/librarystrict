@@ -26,10 +26,17 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<plugin.dependency.version>2.5.1</plugin.dependency.version>
 		<plugin.surefire.version>2.12.4</plugin.surefire.version>
 		<plugin.war.version>3.2.0</plugin.war.version>
+		<spring.version>5.0.5.RELEASE</spring.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>ru.strict</groupId>
 				<artifactId>services</artifactId>
