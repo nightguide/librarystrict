@@ -1,0 +1,125 @@
+CREATE TABLE publishing(
+id BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+CONSTRAINT pk_publishing PRIMARY KEY (id)
+);
+
+CREATE TABLE genre(
+id BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+parent BIGINT,
+CONSTRAINT pk_genre PRIMARY KEY (id),
+CONSTRAINT fk_genre_genre_id FOREIGN KEY (parent) REFERENCES genre(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT uq_genre_name UNIQUE (name)
+);
+
+CREATE TABLE country(
+id BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+CONSTRAINT pk_country PRIMARY KEY(id),
+CONSTRAINT uq_country_name UNIQUE (name)
+);
+
+CREATE TABLE author(
+id BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+lastname VARCHAR(255) NOT NULL,
+middlename VARCHAR(255),
+country BIGINT NOT NULL,
+CONSTRAINT pk_id PRIMARY KEY (id),
+CONSTRAINT fk_author_country_id FOREIGN KEY (country) REFERENCES country(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE user(
+id BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+lastname VARCHAR(255),
+middlename VARCHAR(255),
+login VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+passwordmd5 VARCHAR(32) NOT NULL,
+CONSTRAINT pk_user PRIMARY KEY (id),
+CONSTRAINT uq_user_login UNIQUE (login),
+CONSTRAINT uq_user_email UNIQUE (email)
+);
+
+CREATE TABLE comment(
+id BIGINT NOT NULL AUTO_INCREMENT,
+title VARCHAR(255) NOT NULL,
+content TEXT NOT NULL,
+datesend DATE NOT NULL,
+CONSTRAINT pk_comment PRIMARY KEY (id)
+);
+
+CREATE TABLE book(
+id BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+yearpublication YEAR NOT NULL,
+coverpath TEXT,
+publishing BIGINT NOT NULL,
+countpages SMALLINT NOT NULL,
+isbn VARCHAR(255),
+agelimit ENUM('0+', '6+', '12+', '16+', '18+') NOT NULL,
+description TEXT NOT NULL,
+author BIGINT NOT NULL,
+pdfpath TEXT,
+fb2path TEXT,
+mp3path TEXT,
+wavpath TEXT,
+CONSTRAINT pk_book PRIMARY KEY (id),
+CONSTRAINT fk_book_publishing_id FOREIGN KEY (publishing) REFERENCES publishing(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_book_author_id FOREIGN KEY (author) REFERENCES author(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT uq_book_isbn UNIQUE (isbn)
+);
+
+CREATE TABLE favorite(
+id BIGINT NOT NULL AUTO_INCREMENT,
+user BIGINT NOT NULL,
+book BIGINT NOT NULL,
+CONSTRAINT pk_favorite PRIMARY KEY (id),
+CONSTRAINT fk_favorite_user_id FOREIGN KEY (user) REFERENCES user(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_favorite_book_id FOREIGN KEY (book) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT uq_favorite_transit UNIQUE (user, book)
+);
+
+CREATE TABLE star(
+id BIGINT NOT NULL AUTO_INCREMENT,
+book BIGINT NOT NULL,
+user BIGINT NOT NULL,
+value ENUM('0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4,5', '5') NOT NULL,
+CONSTRAINT pk_star PRIMARY KEY (id),
+CONSTRAINT fk_star_user_id FOREIGN KEY (user) REFERENCES user(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_star_book_id FOREIGN KEY (book) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT uq_star_userbook UNIQUE (user, book)
+);
+
+CREATE TABLE comment_on_user(
+id BIGINT NOT NULL AUTO_INCREMENT,
+user BIGINT NOT NULL,
+comment BIGINT NOT NULL,
+CONSTRAINT pk_comment__user PRIMARY KEY (id),
+CONSTRAINT fk_comment__user_user_id FOREIGN KEY (user) REFERENCES user(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_comment__user_comment_id FOREIGN KEY (comment) REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT uq_comment__user_transit UNIQUE (user, comment)
+);
+
+CREATE TABLE comment_on_book(
+id BIGINT NOT NULL AUTO_INCREMENT,
+book BIGINT NOT NULL,
+comment BIGINT NOT NULL,
+CONSTRAINT pk_comment__book PRIMARY KEY (id),
+CONSTRAINT fk_comment__book_book_id FOREIGN KEY (book) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_comment__book_comment_id FOREIGN KEY (comment) REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT uq_comment__book_transit UNIQUE (book, comment)
+);
+
+
+CREATE TABLE book_on_genre(
+id BIGINT NOT NULL AUTO_INCREMENT,
+book BIGINT NOT NULL,
+genre BIGINT NOT NULL,
+CONSTRAINT pk_book__genre PRIMARY KEY (id),
+CONSTRAINT fk_book__genre_book_id FOREIGN KEY (book) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_book__genre_genre_id FOREIGN KEY (genre) REFERENCES genre(id) ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT uq_book__genre_transit UNIQUE (book, genre)
+);
