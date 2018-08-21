@@ -66,12 +66,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<dependency>
 				<groupId>ru.strict</groupId>
 				<artifactId>jdb-core</artifactId>
-				<version>0.1.12</version>
+				<version>0.1.13</version>
 			</dependency>
 			<dependency>
 				<groupId>ru.strict</groupId>
 				<artifactId>jdb-spring</artifactId>
-				<version>0.1.7</version>
+				<version>0.1.8</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
