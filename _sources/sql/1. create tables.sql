@@ -1,57 +1,68 @@
 /* PostgreSQL */
 
-CREATE TABLE public.country(
+CREATE TABLE country(
 id UUID NOT NULL,
-caption TEXT NOT NULL,
+caption VARCHAR(255) NOT NULL,
 CONSTRAINT pk_country PRIMARY KEY (id),
-CONSTRAINT uq_country_caption UNIQUE (caption));
+CONSTRAINT uq_country_caption UNIQUE (caption)
+);
 
-CREATE TABLE public.city(
+CREATE TABLE city(
 id UUID NOT NULL,
-caption TEXT NOT NULL,
+caption VARCHAR(255) NOT NULL,
 country_id UUID NOT NULL,
 CONSTRAINT pk_city PRIMARY KEY (id),
 CONSTRAINT uq_city_caption UNIQUE (caption, country_id),
-CONSTRAINT fk_city_country_id FOREIGN KEY (country_id) REFERENCES country(id));
+CONSTRAINT fk_city_country_id FOREIGN KEY (country_id) REFERENCES country(id)
+);
 
-CREATE TABLE public.roleuser(
+CREATE TABLE roleuser(
 id UUID NOT NULL,
-code TEXT NOT NULL,
+code VARCHAR(255) NOT NULL,
 description TEXT,
 CONSTRAINT pk_roleuser PRIMARY KEY (id),
-CONSTRAINT uq_roleuser_code UNIQUE (code));
+CONSTRAINT uq_roleuser_code UNIQUE (code)
+);
 
-CREATE TABLE public.userx(
+CREATE TABLE userx(
 id UUID NOT NULL,
-username TEXT NOT NULL,
+username VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
 passwordencode TEXT NOT NULL,
+isBlocked BOOLEAN NOT NULL,
+isDeleted BOOLEAN NOT NULL,
+isConfirmEmail BOOLEAN NOT NULL,
 CONSTRAINT pk_userx PRIMARY KEY (id),
-CONSTRAINT uq_userx_username UNIQUE (username));
+CONSTRAINT uq_userx_username UNIQUE (username),
+CONSTRAINT uq_userx_email UNIQUE (email)
+);
 
-CREATE TABLE public.user_on_role(
+CREATE TABLE user_on_role(
 id UUID NOT NULL,
 userx_id UUID NOT NULL,
 roleuser_id UUID NOT NULL,
 CONSTRAINT pk_user_on_role PRIMARY KEY (id),
 CONSTRAINT uq_userx__role_transit UNIQUE (userx_id, roleuser_id),
-CONSTRAINT fk_user__role_userx_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_user__role_roleuser_id FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE);
+CONSTRAINT fk_user__role_userx_id FOREIGN KEY (userx_id) REFERENCES userx(id)ON UPDATE CASCADE ON DELETE CASCADE,
+CONSTRAINT fk_user__role_roleuser_id FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
-CREATE TABLE public.profile(
+CREATE TABLE profile(
 id UUID NOT NULL,
-name TEXT NOT NULL,
-surname TEXT NOT NULL,
-middlename TEXT,
+name VARCHAR(255) NOT NULL,
+surname VARCHAR(255) NOT NULL,
+middlename VARCHAR(255),
 userx_id UUID NOT NULL,
 datebirth DATE,
-phone TEXT,
+phone VARCHAR(51),
 city_id UUID,
 CONSTRAINT pk_profile PRIMARY KEY (id),
 CONSTRAINT uq_profile_userx_id UNIQUE (userx_id),
 CONSTRAINT fk_profile_userx_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_profile_city_id FOREIGN KEY (city_id) REFERENCES city(id) ON UPDATE CASCADE ON DELETE CASCADE);
+CONSTRAINT fk_profile_city_id FOREIGN KEY (city_id) REFERENCES city(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
-CREATE TABLE public.token(
+CREATE TABLE token(
 id UUID NOT NULL,
 accessToken TEXT NOT NULL,
 refreshToken TEXT NOT NULL,
@@ -69,7 +80,8 @@ userx_id UUID NOT NULL,
 roleuser_id UUID NOT NULL,
 CONSTRAINT pk_token PRIMARY KEY (id),
 CONSTRAINT fk_token_userx_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_token_roleuser_id FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE);
+CONSTRAINT fk_token_roleuser_id FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 CREATE TABLE public.publishing(
 id uuid NOT NULL,
