@@ -8,8 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.strict.app.models.registration.SignUpViewModel;
 import ru.strict.db.core.dto.DtoProfile;
 import ru.strict.db.core.dto.DtoUser;
-import ru.strict.db.core.entities.EntityUser;
-import ru.strict.db.spring.repositories.RepositorySpringBase;
+import ru.strict.db.repositories.interfaces.IRepositoryUser;
 import ru.strict.utils.UtilData;
 import ru.strict.utils.UtilHash;
 
@@ -19,7 +18,7 @@ import java.util.UUID;
 public class RegistrationController{
 
     @Autowired
-    private RepositorySpringBase<UUID, EntityUser, DtoUser> repositoryUser;
+    private IRepositoryUser repositoryUser;
 
     @RequestMapping(value="/registration", method=RequestMethod.GET)
     public ModelAndView index(){
@@ -40,12 +39,13 @@ public class RegistrationController{
                 user.setEmail(data.getEmail());
 
                 DtoProfile<UUID> profile = new DtoProfile<>();
+                profile.setId(UUID.randomUUID());
                 profile.setName(UtilData.convertStringFromISOToUTF8(data.getName()));
                 profile.setSurname(UtilData.convertStringFromISOToUTF8(data.getSurname()));
                 profile.setMiddlename(UtilData.convertStringFromISOToUTF8(data.getMiddlename()));
+                profile.setUserId(user.getId());
 
-                repositoryUser.create(user);
-                int i = 0;
+                repositoryUser.createUser(user, profile);
             }
         }
         model.setViewName("redirect:/auth");

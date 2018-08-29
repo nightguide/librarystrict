@@ -3,17 +3,21 @@ package ru.strict.app.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import ru.strict.db.core.common.ConnectionByDbType;
 import ru.strict.db.core.common.GenerateIdType;
 import ru.strict.db.core.common.MapperDtoType;
 import ru.strict.db.core.connections.CreateConnectionByDataSource;
+import ru.strict.db.core.dto.DtoProfile;
 import ru.strict.db.core.dto.DtoUser;
+import ru.strict.db.core.entities.EntityProfile;
 import ru.strict.db.core.entities.EntityUser;
 import ru.strict.db.core.mappers.dto.MapperDtoFactory;
+import ru.strict.db.repositories.RepositoryUser;
+import ru.strict.db.repositories.interfaces.IRepositoryUser;
+import ru.strict.db.spring.repositories.RepositoryProfile;
 import ru.strict.db.spring.repositories.RepositorySpringBase;
-import ru.strict.db.spring.repositories.RepositoryUser;
-import ru.strict.db.spring.repositories.RepositoryUserFillToken;
 
 import javax.sql.DataSource;
 import java.util.UUID;
@@ -33,10 +37,31 @@ public class IoC {
     }
 
     @Bean
-    public RepositorySpringBase<UUID, EntityUser, DtoUser> getRepositoryUser(){
-        return new RepositoryUser<UUID, DtoUser>(
+    public DataSourceTransactionManager transactionManager() {
+        final DataSourceTransactionManager txManager = new DataSourceTransactionManager();
+        txManager.setDataSource(getDataSource());
+
+        return txManager;
+    }
+
+    @Bean
+    public IRepositoryUser getRepositoryUser(){
+        return new RepositoryUser(new CreateConnectionByDataSource(getDataSource()));
+    }
+
+    @Bean
+    public RepositorySpringBase<UUID, EntityUser, DtoUser> getRepositoryUserStrict(){
+        return new ru.strict.db.spring.repositories.RepositoryUser(
                 new CreateConnectionByDataSource(getDataSource()),
                 new MapperDtoFactory().instance(MapperDtoType.USER),
+                GenerateIdType.NONE
+        );
+    }
+
+    @Bean
+    public RepositorySpringBase<UUID, EntityProfile, DtoProfile> getRepositoryProfile(){
+        return new RepositoryProfile(
+                new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
         );
     }
