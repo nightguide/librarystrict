@@ -1,30 +1,30 @@
 /* PostgreSQL */
 
-CREATE TABLE country(
+CREATE TABLE public.country(
 id UUID NOT NULL,
 caption VARCHAR(255) NOT NULL,
-CONSTRAINT pk_country PRIMARY KEY (id),
-CONSTRAINT uq_country_caption UNIQUE (caption)
+PRIMARY KEY (id),
+UNIQUE (caption)
 );
 
-CREATE TABLE city(
+CREATE TABLE public.city(
 id UUID NOT NULL,
 caption VARCHAR(255) NOT NULL,
 country_id UUID NOT NULL,
-CONSTRAINT pk_city PRIMARY KEY (id),
-CONSTRAINT uq_city_caption UNIQUE (caption, country_id),
-CONSTRAINT fk_city_country_id FOREIGN KEY (country_id) REFERENCES country(id)
+PRIMARY KEY (id),
+UNIQUE (caption, country_id),
+FOREIGN KEY (country_id) REFERENCES country(id)
 );
 
-CREATE TABLE roleuser(
+CREATE TABLE public.roleuser(
 id UUID NOT NULL,
 code VARCHAR(255) NOT NULL,
 description TEXT,
-CONSTRAINT pk_roleuser PRIMARY KEY (id),
-CONSTRAINT uq_roleuser_code UNIQUE (code)
+PRIMARY KEY (id),
+UNIQUE (code)
 );
 
-CREATE TABLE userx(
+CREATE TABLE public.userx(
 id UUID NOT NULL,
 username VARCHAR(255) NOT NULL,
 email VARCHAR(255) NOT NULL,
@@ -32,22 +32,22 @@ passwordencode TEXT NOT NULL,
 isBlocked BOOLEAN NOT NULL,
 isDeleted BOOLEAN NOT NULL,
 isConfirmEmail BOOLEAN NOT NULL,
-CONSTRAINT pk_userx PRIMARY KEY (id),
-CONSTRAINT uq_userx_username UNIQUE (username),
-CONSTRAINT uq_userx_email UNIQUE (email)
+PRIMARY KEY (id),
+UNIQUE (username),
+UNIQUE (email)
 );
 
-CREATE TABLE user_on_role(
+CREATE TABLE public.user_on_role(
 id UUID NOT NULL,
 userx_id UUID NOT NULL,
 roleuser_id UUID NOT NULL,
-CONSTRAINT pk_user_on_role PRIMARY KEY (id),
-CONSTRAINT uq_userx__role_transit UNIQUE (userx_id, roleuser_id),
-CONSTRAINT fk_user__role_userx_id FOREIGN KEY (userx_id) REFERENCES userx(id)ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_user__role_roleuser_id FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE
+PRIMARY KEY (id),
+UNIQUE (userx_id, roleuser_id),
+FOREIGN KEY (userx_id) REFERENCES userx(id)ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE profile(
+CREATE TABLE public.profile(
 id UUID NOT NULL,
 name VARCHAR(255) NOT NULL,
 surname VARCHAR(255) NOT NULL,
@@ -56,13 +56,13 @@ userx_id UUID NOT NULL,
 datebirth DATE,
 phone VARCHAR(51),
 city_id UUID,
-CONSTRAINT pk_profile PRIMARY KEY (id),
-CONSTRAINT uq_profile_userx_id UNIQUE (userx_id),
-CONSTRAINT fk_profile_userx_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_profile_city_id FOREIGN KEY (city_id) REFERENCES city(id) ON UPDATE CASCADE ON DELETE CASCADE
+PRIMARY KEY (id),
+UNIQUE (userx_id),
+FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (city_id) REFERENCES city(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE token(
+CREATE TABLE public.token(
 id UUID NOT NULL,
 accessToken TEXT NOT NULL,
 refreshToken TEXT NOT NULL,
@@ -78,24 +78,24 @@ algorithm TEXT,
 type TEXT,
 userx_id UUID NOT NULL,
 roleuser_id UUID NOT NULL,
-CONSTRAINT pk_token PRIMARY KEY (id),
-CONSTRAINT fk_token_userx_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_token_roleuser_id FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE
+PRIMARY KEY (id),
+FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (roleuser_id) REFERENCES roleuser(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE public.publishing(
 id uuid NOT NULL,
 caption VARCHAR(255) NOT NULL,
-CONSTRAINT pk_publishing PRIMARY KEY (id)
+PRIMARY KEY (id)
 );
 
 CREATE TABLE public.genre(
 id UUID NOT NULL,
 caption VARCHAR(255) NOT NULL,
 parent_id UUID,
-CONSTRAINT pk_genre PRIMARY KEY (id),
-CONSTRAINT fk_genre_genre_id FOREIGN KEY (parent_id) REFERENCES genre(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT uq_genre_caption UNIQUE (caption)
+PRIMARY KEY (id),
+FOREIGN KEY (parent_id) REFERENCES genre(id) ON UPDATE CASCADE ON DELETE CASCADE,
+UNIQUE (caption)
 );
 
 CREATE TABLE public.author(
@@ -104,8 +104,8 @@ name VARCHAR(255) NOT NULL,
 lastname VARCHAR(255) NOT NULL,
 middlename VARCHAR(255),
 country_id UUID NOT NULL,
-CONSTRAINT pk_id PRIMARY KEY (id),
-CONSTRAINT fk_author_country_id FOREIGN KEY (country_id) REFERENCES country(id) ON UPDATE CASCADE ON DELETE CASCADE
+PRIMARY KEY (id),
+FOREIGN KEY (country_id) REFERENCES country(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE public.comment(
@@ -113,7 +113,7 @@ id UUID NOT NULL,
 title VARCHAR(255) NOT NULL,
 content TEXT NOT NULL,
 datesend DATE NOT NULL,
-CONSTRAINT pk_comment PRIMARY KEY (id)
+PRIMARY KEY (id)
 );
 
 CREATE TYPE agelimit AS ENUM ('0+', '6+', '12+', '16+', '18+');
@@ -133,20 +133,20 @@ pdfpath TEXT,
 fb2path TEXT,
 mp3path TEXT,
 wavpath TEXT,
-CONSTRAINT pk_book PRIMARY KEY (id),
-CONSTRAINT fk_book_publishing_id FOREIGN KEY (publishing_id) REFERENCES publishing(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_book_author_id FOREIGN KEY (author_id) REFERENCES author(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT uq_book_isbn UNIQUE (isbn)
+PRIMARY KEY (id),
+FOREIGN KEY (publishing_id) REFERENCES publishing(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (author_id) REFERENCES author(id) ON UPDATE CASCADE ON DELETE CASCADE,
+UNIQUE (isbn)
 );
 
 CREATE TABLE public.favorite(
 id UUID NOT NULL,
 userx_id UUID NOT NULL,
 book_id UUID NOT NULL,
-CONSTRAINT pk_favorite PRIMARY KEY (id),
-CONSTRAINT fk_favorite_user_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_favorite_book_id FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT uq_favorite_transit UNIQUE (userx_id, book_id)
+PRIMARY KEY (id),
+FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+UNIQUE (userx_id, book_id)
 );
 
 CREATE TYPE star_value AS ENUM ('0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5');
@@ -156,38 +156,38 @@ id UUID NOT NULL,
 book_id UUID NOT NULL,
 userx_id UUID NOT NULL,
 value star_value NOT NULL,
-CONSTRAINT pk_star PRIMARY KEY (id),
-CONSTRAINT fk_star_user_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_star_book_id FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT uq_star_userbook UNIQUE (userx_id, book_id)
+PRIMARY KEY (id),
+FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+UNIQUE (userx_id, book_id)
 );
 
 CREATE TABLE public.comment_on_user(
 id UUID NOT NULL,
 userx_id UUID NOT NULL,
 comment_id UUID NOT NULL,
-CONSTRAINT pk_comment__user PRIMARY KEY (id),
-CONSTRAINT fk_comment__user_user_id FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_comment__user_comment_id FOREIGN KEY (comment_id) REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT uq_comment__user_transit UNIQUE (userx_id, comment_id)
+PRIMARY KEY (id),
+FOREIGN KEY (userx_id) REFERENCES userx(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (comment_id) REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+UNIQUE (userx_id, comment_id)
 );
 
 CREATE TABLE public.comment_on_book(
 id UUID NOT NULL,
 book_id UUID NOT NULL,
 comment_id UUID NOT NULL,
-CONSTRAINT pk_comment__book PRIMARY KEY (id),
-CONSTRAINT fk_comment__book_book_id FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_comment__book_comment_id FOREIGN KEY (comment_id) REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT uq_comment__book_transit UNIQUE (book_id, comment_id)
+PRIMARY KEY (id),
+FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (comment_id) REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+UNIQUE (book_id, comment_id)
 );
 
 CREATE TABLE public.book_on_genre(
 id UUID NOT NULL,
 book_id UUID NOT NULL,
 genre_id UUID NOT NULL,
-CONSTRAINT pk_book__genre PRIMARY KEY (id),
-CONSTRAINT fk_book__genre_book_id FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT fk_book__genre_genre_id FOREIGN KEY (genre_id) REFERENCES genre(id) ON UPDATE CASCADE ON DELETE CASCADE,
-CONSTRAINT uq_book__genre_transit UNIQUE (book_id, genre_id)
+PRIMARY KEY (id),
+FOREIGN KEY (book_id) REFERENCES book(id) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY (genre_id) REFERENCES genre(id) ON UPDATE CASCADE ON DELETE CASCADE,
+UNIQUE (book_id, genre_id)
 );
