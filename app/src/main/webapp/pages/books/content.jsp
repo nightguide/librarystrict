@@ -5,7 +5,6 @@
 %>
 
 <div class="content">
-
     <%@include file="banner.jsp"%>
     <%@include file="../shared/components/path.jsp"%>
 
