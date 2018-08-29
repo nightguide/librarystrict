@@ -15,7 +15,7 @@
                 <a class="layout_cover" style="grid-row: 1" href="\book">
                                 <span class="wrapper_download">
                                     <img class="cover"
-                                         src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
+                                         src="books_data/473e511b-2e9e-4ec4-b170-d9743e22bab7/cover.jpg"/>
                                     <div class="layout_download">
                                         <span class="layout_btn_download"><input type="button" class="download"
                                                                                  onclick="window.location.href='#'"
