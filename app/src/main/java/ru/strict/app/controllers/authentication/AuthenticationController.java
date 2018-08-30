@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,8 @@ import ru.strict.utils.UtilDate;
 import ru.strict.utils.UtilJWTToken;
 import ru.strict.validates.ValidateBaseValue;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Controller
@@ -26,9 +29,6 @@ public class AuthenticationController {
     @RequestMapping(value="/auth", method=RequestMethod.GET)
     public ModelAndView index(){
         ModelAndView model = new ModelAndView();
-        TokenInfo token = UtilJWTToken.createToken(null, null, null, null,
-                "aaaa",null, null);
-        Jws<Claims> jwt = UtilJWTToken.decodeToken(token.getSecret(), token.getToken());
         model.setViewName("authentication/index");
         return model;
     }

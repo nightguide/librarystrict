@@ -1,10 +1,11 @@
-package ru.strict.services.interfaces;
+package ru.strict.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
 import ru.strict.services.data.requests.RequestAuthUser;
+import ru.strict.services.interfaces.IServiceAuthentication;
 import ru.strict.utils.UtilHash;
 import ru.strict.validates.ValidateBaseValue;
 

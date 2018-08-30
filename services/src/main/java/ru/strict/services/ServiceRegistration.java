@@ -3,9 +3,11 @@ package ru.strict.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strict.db.core.dto.DtoProfile;
+import ru.strict.db.core.dto.DtoToken;
 import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
 import ru.strict.services.data.requests.RequestCreateUser;
+import ru.strict.services.data.responses.ResponseUserRegistration;
 import ru.strict.services.interfaces.IServiceRegistration;
 import ru.strict.utils.UtilData;
 import ru.strict.utils.UtilHash;
@@ -19,8 +21,8 @@ public class ServiceRegistration implements IServiceRegistration {
     private IRepositoryUser repositoryUser;
 
     @Override
-    public boolean createUser(RequestCreateUser request) {
-        boolean result = false;
+    public ResponseUserRegistration createUser(RequestCreateUser request) {
+        ResponseUserRegistration result = null;
 
         if(request != null){
             if(request.getPassword().equals(request.getPasswordRetry())){
@@ -37,9 +39,9 @@ public class ServiceRegistration implements IServiceRegistration {
                 profile.setMiddlename(UtilData.convertStringFromISOToUTF8(request.getMiddlename()));
                 profile.setUserId(user.getId());
 
-                repositoryUser.createUser(user, profile);
+                DtoToken token = repositoryUser.createUser(user, profile);
 
-                result = true;
+                result = new ResponseUserRegistration(token.getAccessToken(), token.getRefreshToken());
             }
         }
 

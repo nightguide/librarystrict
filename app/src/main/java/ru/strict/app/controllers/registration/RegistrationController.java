@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.strict.app.models.registration.SignUpViewModel;
 import ru.strict.services.data.requests.RequestCreateUser;
+import ru.strict.services.data.responses.ResponseUserRegistration;
 import ru.strict.services.interfaces.IServiceRegistration;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class RegistrationController{
@@ -23,7 +27,7 @@ public class RegistrationController{
     }
 
     @RequestMapping(value="/registration", method=RequestMethod.POST)
-    public ModelAndView signUp(SignUpViewModel data){
+    public ModelAndView signUp(SignUpViewModel data, HttpServletResponse response){
         ModelAndView model = new ModelAndView();
 
         RequestCreateUser request = new RequestCreateUser();
@@ -34,7 +38,15 @@ public class RegistrationController{
         request.setName(data.getName());
         request.setSurname(data.getSurname());
         request.setMiddlename(data.getMiddlename());
-        serviceRegistration.createUser((request));
+        ResponseUserRegistration responseUserRegistration = serviceRegistration.createUser((request));
+
+        Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserRegistration.getAccessToken());
+        cookieAccessToken.setMaxAge(259200);
+        response.addCookie(cookieAccessToken);
+
+        Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserRegistration.getRefreshToken());
+        cookieRefreshToken.setMaxAge(7776000);
+        response.addCookie(cookieRefreshToken);
 
         model.setViewName("redirect:/auth");
         return model;
