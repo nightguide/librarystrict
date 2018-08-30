@@ -10,5 +10,5 @@ import java.util.UUID;
 public interface IRepositoryUser extends IRepositoryNamed<UUID, DtoUser> {
 
     @Transactional
-    void createUser(DtoUser user, DtoProfile profile);
+    boolean createUser(DtoUser user, DtoProfile profile);
 }

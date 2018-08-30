@@ -14,6 +14,7 @@ import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.core.entities.EntityProfile;
 import ru.strict.db.core.entities.EntityUser;
 import ru.strict.db.core.mappers.dto.MapperDtoFactory;
+import ru.strict.db.core.repositories.IRepositoryExtension;
 import ru.strict.db.repositories.RepositoryUser;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
 import ru.strict.db.spring.repositories.RepositoryProfile;
@@ -37,6 +38,11 @@ public class IoC {
     }
 
     @Bean
+    public CreateConnectionByDataSource getConnectionByDataSource(){
+        return new CreateConnectionByDataSource(getDataSource());
+    }
+
+    @Bean
     public DataSourceTransactionManager transactionManager() {
         final DataSourceTransactionManager txManager = new DataSourceTransactionManager();
         txManager.setDataSource(getDataSource());
@@ -45,12 +51,7 @@ public class IoC {
     }
 
     @Bean
-    public IRepositoryUser getRepositoryUser(){
-        return new RepositoryUser(new CreateConnectionByDataSource(getDataSource()));
-    }
-
-    @Bean
-    public RepositorySpringBase<UUID, EntityUser, DtoUser> getRepositoryUserStrict(){
+    public IRepositoryExtension<UUID, DtoUser> getRepositoryUserStrict() {
         return new ru.strict.db.spring.repositories.RepositoryUser(
                 new CreateConnectionByDataSource(getDataSource()),
                 new MapperDtoFactory().instance(MapperDtoType.USER),
@@ -59,7 +60,7 @@ public class IoC {
     }
 
     @Bean
-    public RepositorySpringBase<UUID, EntityProfile, DtoProfile> getRepositoryProfile(){
+    public IRepositoryExtension<UUID, DtoProfile> getRepositoryProfile(){
         return new RepositoryProfile(
                 new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
