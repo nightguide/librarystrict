@@ -7,9 +7,12 @@ import ru.strict.db.core.common.GenerateIdType;
 import ru.strict.db.core.common.MapperDtoType;
 import ru.strict.db.core.connections.CreateConnectionByDataSource;
 import ru.strict.db.core.dto.DtoProfile;
+import ru.strict.db.core.dto.DtoRoleuser;
 import ru.strict.db.core.dto.DtoUser;
+import ru.strict.db.core.dto.DtoUserOnRole;
 import ru.strict.db.core.mappers.dto.MapperDtoFactory;
 import ru.strict.db.core.repositories.IRepositoryExtension;
+import ru.strict.db.core.repositories.IRepositoryNamed;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
 
 import java.util.UUID;
@@ -25,6 +28,12 @@ public class RepositoryUser
     @Autowired
     private IRepositoryExtension<UUID, DtoProfile> repositoryProfile;
 
+    @Autowired
+    private IRepositoryNamed<UUID, DtoRoleuser> repositoryRoleuser;
+
+    @Autowired
+    private IRepositoryExtension<UUID, DtoUserOnRole> repositoryUserOnRole;
+
     public RepositoryUser(CreateConnectionByDataSource connectionSource) {
         super(connectionSource, new MapperDtoFactory().instance(MapperDtoType.USER), GenerateIdType.NONE);
     }
@@ -37,6 +46,9 @@ public class RepositoryUser
         try {
             repositoryUser.create(user);
             repositoryProfile.create(profile);
+            UUID roleUserId = (UUID) repositoryRoleuser.readByName("USER").getId();
+            DtoUserOnRole userOnRole = new DtoUserOnRole(UUID.randomUUID(), user.getId(), roleUserId);
+            repositoryUserOnRole.create(userOnRole);
             result = true;
         }catch(Exception ex){}
 

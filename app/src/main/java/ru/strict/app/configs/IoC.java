@@ -10,15 +10,20 @@ import ru.strict.db.core.common.GenerateIdType;
 import ru.strict.db.core.common.MapperDtoType;
 import ru.strict.db.core.connections.CreateConnectionByDataSource;
 import ru.strict.db.core.dto.DtoProfile;
+import ru.strict.db.core.dto.DtoRoleuser;
 import ru.strict.db.core.dto.DtoUser;
+import ru.strict.db.core.dto.DtoUserOnRole;
 import ru.strict.db.core.entities.EntityProfile;
 import ru.strict.db.core.entities.EntityUser;
 import ru.strict.db.core.mappers.dto.MapperDtoFactory;
 import ru.strict.db.core.repositories.IRepositoryExtension;
+import ru.strict.db.core.repositories.IRepositoryNamed;
 import ru.strict.db.repositories.RepositoryUser;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
 import ru.strict.db.spring.repositories.RepositoryProfile;
+import ru.strict.db.spring.repositories.RepositoryRoleuser;
 import ru.strict.db.spring.repositories.RepositorySpringBase;
+import ru.strict.db.spring.repositories.RepositoryUserOnRole;
 
 import javax.sql.DataSource;
 import java.util.UUID;
@@ -62,6 +67,22 @@ public class IoC {
     @Bean
     public IRepositoryExtension<UUID, DtoProfile> getRepositoryProfile(){
         return new RepositoryProfile(
+                new CreateConnectionByDataSource(getDataSource()),
+                GenerateIdType.NONE
+        );
+    }
+
+    @Bean
+    public IRepositoryNamed<UUID, DtoRoleuser> getRepositoryRoleuser() {
+        return new RepositoryRoleuser(
+                new CreateConnectionByDataSource(getDataSource()),
+                GenerateIdType.NONE
+        );
+    }
+
+    @Bean
+    public IRepositoryExtension<UUID, DtoUserOnRole> getRepositoryUserOnRole(){
+        return new RepositoryUserOnRole(
                 new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
         );

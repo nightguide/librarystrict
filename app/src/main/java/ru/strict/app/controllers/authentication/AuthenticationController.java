@@ -1,14 +1,20 @@
 package ru.strict.app.controllers.authentication;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.strict.app.models.authentication.SignInViewModel;
+import ru.strict.services.data.requests.RequestAuthUser;
+import ru.strict.services.interfaces.IServiceAuthentication;
 import ru.strict.validates.ValidateBaseValue;
 
 @Controller
 public class AuthenticationController {
+
+    @Autowired
+    private IServiceAuthentication serviceAuthentication;
 
     @RequestMapping(value="/auth", method=RequestMethod.GET)
     public ModelAndView index(){
@@ -21,13 +27,11 @@ public class AuthenticationController {
     public ModelAndView signIn(SignInViewModel data){
         String redirectUrl = "/";
         ModelAndView model = new ModelAndView();
-        if(data != null){
-            if(ValidateBaseValue.isNotEmptyOrNull(data.getUsername())
-                    && ValidateBaseValue.isNotEmptyOrNull(data.getPassword())
-                    && data.getUsername().equals("user")
-                    && data.getPassword().equals("user")) {
-                redirectUrl = "/books";
-            }
+
+        RequestAuthUser request = new RequestAuthUser(data.getUsername(), data.getPassword());
+
+        if(serviceAuthentication.authUser(request)){
+            redirectUrl = "/books";
         }
 
         model.setViewName("redirect:" + redirectUrl);
