@@ -6,6 +6,10 @@
         <%@include file="../../resources/css/pre/common_auth_reg.css"%>
         <%@include file="../../resources/css/pre/reg.css"%>
     </style>
+    <script type="text/javascript">
+        <%@include file="../../resources/libs/jquery-3.1.1.min.js"%>
+        <%@include file="../../resources/scripts/core.js"%>
+    </script>
     <title>Регистрация</title>
 </head>
 
@@ -16,22 +20,65 @@
         <img class="logo" src="resources/images/png/Logo_LibraryStrict.png" alt="logo"/>
         <div class="layout_main">
             <p class="title">Регистрация</p>
-            <form class="layout_input_fields" action="\registration" method="post">
-                <input type="text" name="tf_login" placeholder="Введите логин" class="input_text"/>
-                <input type="text" name="tf_email" placeholder="Введите email" class="input_text"/>
-                <input type="password" name="tf_password" placeholder="Введите пароль" class="input_text"/>
-                <input type="password" name="tf_password_retry" placeholder="Повторите пароль" class="input_text"/>
-                <input type="text" name="tf_name" placeholder="Введите ваше имя" class="input_text"/>
-                <input type="text" name="tf_surname" placeholder="Введите вашу фамилию" class="input_text"/>
-                <input type="text" name="tf_middlename" placeholder="Введите ваше отчество" class="input_text"/>
+            <form id="reg_form" class="layout_form" action="\registration" method="post">
+                <div class="layout_input_fields">
+                    <input type="text" name="username" placeholder="Введите логин" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="email" placeholder="Введите email" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="password" name="password" placeholder="Введите пароль" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="password" name="passwordRetry" placeholder="Повторите пароль" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="name" placeholder="Введите ваше имя" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="surname" placeholder="Введите вашу фамилию" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="middlename" placeholder="Введите ваше отчество" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
                 <div class="layout_buttons">
-                    <input type="submit" name="btn_signin" value="зарегистрироваться" class="buttons"/>
+                    <input id="btn_reg" type="button" value="зарегистрироваться" class="buttons"/>
                     <div class="separator"></div>
-                    <input type="button" name="btn_reg" value="назад" class="buttons"
-                            onclick="window.location.href='<%=request.getContextPath()%>/auth'"/>
+                    <input type="button" name="btn_back" value="назад" class="buttons"
+                           onclick="window.location.href='<%=request.getContextPath()%>/auth'"/>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        $('#btn_reg').click(function(event){
+            event.preventDefault()
+
+            var formData = convertFormToJSON('#reg_form')
+
+            $.ajax({
+                type: 'POST',
+                url: '/registration',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(data){
+                    window.location.replace(data.url)
+                },
+                error: function(data){
+                    displayErrorsToForm('#reg_form', data.responseJSON);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

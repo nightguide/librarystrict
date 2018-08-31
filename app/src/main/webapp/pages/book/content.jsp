@@ -5,7 +5,6 @@
 %>
 
 <div class="content">
-
     <%@include file="../shared/components/path.jsp"%>
 
     <div class="layout_main">

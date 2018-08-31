@@ -10,149 +10,28 @@
     <%@include file="../shared/components/path.jsp"%>
 
     <div class="layout_genres">
-        <div class="row_genres">
-            <article class="genre">
-                <a class="title_genre" href="#">Компьютерная литература</a>
-                <div class="books_genre" style="grid-column: 1">
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
+        <%for(int r = 0; r < 2; r++){%>
+            <div class="row_genres">
+                <%for(int g = 0; g < 2; g++){%>
+                    <article class="genre">
+                        <a class="title_genre" href="#">Компьютерная литература</a>
+                        <div class="books_genre" style="grid-column: 1">
+                            <%for(int i = 0; i < 3; i++){%>
+                                <div class="book_genre">
+                                    <div class="layout_cover">
+                                        <a class="link_cover" href="#">
+                                            <img class="cover_book"
+                                                 src="books_data/473e511b-2e9e-4ec4-b170-d9743e22bab7/cover.jpg"/>
+                                        </a>
+                                    </div>
+                                    <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
+                                        Science</a>
+                                </div>
+                            <%}%>
                         </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Дэвид Уитни. Учимся создавать сайты, приложения и игры. Программирование для детей/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Учимся создавать сайты, приложения и игры. Программирование
-                            для детей</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                </div>
-            </article>
-            <article class="genre">
-                <a class="title_genre" href="#">Компьютерная литература</a>
-                <div class="books_genre" style="grid-column: 1">
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Дэвид Уитни. Учимся создавать сайты, приложения и игры. Программирование для детей/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Учимся создавать сайты, приложения и игры. Программирование
-                            для детей</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                </div>
-            </article>
-        </div>
-        <div class="row_genres">
-            <article class="genre">
-                <a class="title_genre" href="#">Компьютерная литература</a>
-                <div class="books_genre" style="grid-column: 1">
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Дэвид Уитни. Учимся создавать сайты, приложения и игры. Программирование для детей/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Учимся создавать сайты, приложения и игры. Программирование
-                            для детей</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                </div>
-            </article>
-            <article class="genre">
-                <a class="title_genre" href="#">Компьютерная литература</a>
-                <div class="books_genre" style="grid-column: 1">
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Дэвид Уитни. Учимся создавать сайты, приложения и игры. Программирование для детей/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Учимся создавать сайты, приложения и игры. Программирование
-                            для детей</a>
-                    </div>
-                    <div class="book_genre">
-                        <div class="layout_cover">
-                            <a class="link_cover" href="#">
-                                <img class="cover_book"
-                                     src="books/Роберт Лафоре. Структуры данных и алгоритмы в Java. Классика Computers Science/cover.jpg"/>
-                            </a>
-                        </div>
-                        <a class="book_title" href="#">Структуры данных и алгоритмы в Java. Классика Computers
-                            Science</a>
-                    </div>
-                </div>
-            </article>
-        </div>
+                    </article>
+                <%}%>
+            </div>
+        <%}%>
     </div>
 </div>

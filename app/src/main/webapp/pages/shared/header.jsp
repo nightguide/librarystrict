@@ -11,7 +11,7 @@
     <div class="layout_profile" style="position: relative">
         <div class="profile">
             <div class="layout_profile_image">
-                <img class="profile_image" src="profiles/konstantin/face.jpg"/>
+                <img class="profile_image" src="profile_data/138g511b-2e9e-4ec4-f170-d9743e23bab7/face.jpg"/>
             </div>
             <div class="layout_profile_name">
                 <a class="profile_name">Константин К.</a>

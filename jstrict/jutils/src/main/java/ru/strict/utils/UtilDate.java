@@ -125,4 +125,31 @@ public class UtilDate {
         UtilLogger.info(UtilDate.class, "diffByMinutes - finished");
         return hours;
     }
+
+    public static Date addDaysToDate(Date date, int countDaysToAdd){
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.setTimeInMillis(date.getTime());
+        cal.add(Calendar.DAY_OF_YEAR, countDaysToAdd);
+
+        return cal.getTime();
+    }
+
+    public static Date addMonthsToDate(Date date, int countMonthsToAdd){
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.setTimeInMillis(date.getTime());
+        cal.add(Calendar.MONTH, countMonthsToAdd);
+
+        return cal.getTime();
+    }
+
+    public static Date addYearsToDate(Date date, int countYearsToAdd){
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.setTimeInMillis(date.getTime());
+        cal.add(Calendar.YEAR, countYearsToAdd);
+
+        return cal.getTime();
+    }
 }
