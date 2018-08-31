@@ -16,9 +16,15 @@
         <img class="logo" src="resources/images/png/Logo_LibraryStrict.png" alt="logo"/>
         <div class="layout_main">
             <p class="title">Авторизация</p>
-            <form class="layout_input_fields" action="\auth" method="post">
-                <input type="text" name="username" placeholder="Введите логин или e-mail" class="input_text"/>
-                <input type="password" name="password" placeholder="Введите пароль" class="input_text"/>
+            <form class="layout_form" action="\auth" method="post">
+                <div class="layout_input_fields">
+                    <input type="text" name="username" placeholder="Введите логин или e-mail" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="password" name="password" placeholder="Введите пароль" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
                 <div class="layout_buttons">
                     <input type="submit" name="btn_signin" value="войти" class="buttons"/>
                     <div class="separator"></div>

@@ -5,3 +5,13 @@ function convertFormToJSON(formSelector){
     }, {});
     return formData;
 }
+
+function displayErrorsToForm(formSelector, errors){
+    $(formSelector).find('.error_message').hide()
+    for(var errorIndex in errors) {
+        var error = errors[errorIndex]
+        var displayErrorField = $(formSelector).find($('[name=' + error.field + ']')).siblings('p')
+        displayErrorField.html(error.defaultMessage)
+        displayErrorField.show()
+    }
+}

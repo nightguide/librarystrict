@@ -20,22 +20,40 @@
         <img class="logo" src="resources/images/png/Logo_LibraryStrict.png" alt="logo"/>
         <div class="layout_main">
             <p class="title">Регистрация</p>
-            <form id="reg_form" class="layout_input_fields" action="\registration" method="post">
-                <input type="text" name="username" placeholder="Введите логин" class="input_text"/>
-                <input type="text" name="email" placeholder="Введите email" class="input_text"/>
-                <input type="password" name="password" placeholder="Введите пароль" class="input_text"/>
-                <input type="password" name="passwordRetry" placeholder="Повторите пароль" class="input_text"/>
-                <input type="text" name="name" placeholder="Введите ваше имя" class="input_text"/>
-                <input type="text" name="surname" placeholder="Введите вашу фамилию" class="input_text"/>
-                <input type="text" name="middlename" placeholder="Введите ваше отчество" class="input_text"/>
+            <form id="reg_form" class="layout_form" action="\registration" method="post">
+                <div class="layout_input_fields">
+                    <input type="text" name="username" placeholder="Введите логин" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="email" placeholder="Введите email" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="password" name="password" placeholder="Введите пароль" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="password" name="passwordRetry" placeholder="Повторите пароль" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="name" placeholder="Введите ваше имя" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="surname" placeholder="Введите вашу фамилию" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
+                <div class="layout_input_fields">
+                    <input type="text" name="middlename" placeholder="Введите ваше отчество" class="input_text"/>
+                    <p class="error_message"></p>
+                </div>
                 <div class="layout_buttons">
                     <input id="btn_signin" type="button" value="зарегистрироваться" class="buttons"/>
-                    <!--
-                    <input type="submit" name="btn_signin" value="зарегистрироваться" class="buttons"/>
-                    -->
                     <div class="separator"></div>
                     <input type="button" name="btn_reg" value="назад" class="buttons"
-                            onclick="window.location.href='<%=request.getContextPath()%>/auth'"/>
+                           onclick="window.location.href='<%=request.getContextPath()%>/auth'"/>
                 </div>
             </form>
         </div>
@@ -54,10 +72,11 @@
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function(data){
-                console.log('success');
+                console.log(data.responseJSON);
             },
             error: function(data){
-                console.log('error');
+                console.log(data.responseJSON);
+                displayErrorsToForm('#reg_form', data.responseJSON);
             }
         });
     });

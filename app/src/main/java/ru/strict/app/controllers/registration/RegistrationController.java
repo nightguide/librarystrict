@@ -3,11 +3,13 @@ package ru.strict.app.controllers.registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import ru.strict.app.controllers.RegValidator;
+import ru.strict.app.validations.RegistrationValidator;
 import ru.strict.app.models.registration.SignUpViewModel;
 import ru.strict.services.data.requests.RequestCreateUser;
 import ru.strict.services.data.responses.ResponseUserRegistration;
@@ -15,6 +17,8 @@ import ru.strict.services.interfaces.IServiceRegistration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class RegistrationController{
@@ -23,7 +27,7 @@ public class RegistrationController{
     private IServiceRegistration serviceRegistration;
 
     @Autowired
-    private RegValidator regValidator;
+    private RegistrationValidator registrationValidator;
 
     @RequestMapping(value="/registration", method=RequestMethod.GET)
     public ModelAndView index(){
@@ -33,10 +37,19 @@ public class RegistrationController{
     }
 
     @RequestMapping(value="/registration", method=RequestMethod.POST)
-    public ModelAndView signUp(@RequestBody SignUpViewModel data,
-                               HttpServletResponse response,
-                               BindingResult resultValidation){
+    @ResponseBody
+    public Object signUp(@RequestBody SignUpViewModel data,
+                              HttpServletResponse response,
+                              BindingResult resultValidation){
         ModelAndView model = new ModelAndView();
+
+        registrationValidator.validate(data, resultValidation);
+
+        if(resultValidation.hasErrors()){
+            response.setStatus(400);
+            List<ObjectError> errors = resultValidation.getAllErrors();
+            return errors;
+        }
 
         RequestCreateUser request = new RequestCreateUser();
         request.setUsername(data.getUsername());
@@ -57,6 +70,7 @@ public class RegistrationController{
         response.addCookie(cookieRefreshToken);
 
         model.setViewName("redirect:/auth");
-        return model;
+
+        return data;
     }
 }

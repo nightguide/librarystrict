@@ -10,14 +10,11 @@ import ru.strict.db.core.common.GenerateIdType;
 import ru.strict.db.core.common.MapperDtoType;
 import ru.strict.db.core.connections.CreateConnectionByDataSource;
 import ru.strict.db.core.dto.*;
-import ru.strict.db.core.entities.EntityProfile;
-import ru.strict.db.core.entities.EntityUser;
 import ru.strict.db.core.mappers.dto.MapperDtoFactory;
 import ru.strict.db.core.repositories.IRepositoryExtension;
 import ru.strict.db.core.repositories.IRepositoryNamed;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
-import ru.strict.db.repositories.RepositoryUser;
-import ru.strict.db.repositories.interfaces.IRepositoryUser;
+import ru.strict.db.core.repositories.interfaces.IRepositoryUser;
 import ru.strict.db.spring.repositories.*;
 
 import javax.sql.DataSource;
@@ -51,7 +48,7 @@ public class IoC {
     }
 
     @Bean
-    public IRepositoryExtension<UUID, DtoUser> getRepositoryUserStrict() {
+    public IRepositoryUser<UUID, DtoUser> getRepositoryUser() {
         return new ru.strict.db.spring.repositories.RepositoryUser(
                 new CreateConnectionByDataSource(getDataSource()),
                 new MapperDtoFactory().instance(MapperDtoType.USER),

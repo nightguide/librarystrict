@@ -39,7 +39,7 @@ body{
 }
 
 /*__________ Layout input __________*/
-.layout_input_fields{
+.layout_form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,7 +48,6 @@ body{
 
 .input_text{
     font-size: 1.4rem;
-    margin: 0.8rem;
     border-color: white;
     color: white;
 }
