@@ -5,4 +5,5 @@ import ru.strict.services.data.responses.ResponseCreateToken;
 
 public interface IServiceToken {
     ResponseCreateToken createToken(RequestCreateToken request);
+    void deleteToken(String accessToken);
 }

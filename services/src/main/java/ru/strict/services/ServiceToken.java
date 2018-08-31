@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strict.components.TokenInfo;
 import ru.strict.db.core.dto.DtoJWTUserToken;
+import ru.strict.db.core.dto.DtoToken;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
 import ru.strict.services.data.requests.RequestCreateToken;
 import ru.strict.services.data.responses.ResponseCreateToken;
@@ -46,5 +47,13 @@ public class ServiceToken implements IServiceToken {
         repositoryToken.create(token);
 
         return new ResponseCreateToken(token.getAccessToken(), token.getRefreshToken());
+    }
+
+    @Override
+    public void deleteToken(String accessToken) {
+        DtoToken token = repositoryToken.readByAccessToken(accessToken);
+        if(token != null){
+            repositoryToken.delete((UUID)token.getId());
+        }
     }
 }

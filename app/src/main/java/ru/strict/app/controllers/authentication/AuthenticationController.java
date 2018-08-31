@@ -11,6 +11,7 @@ import ru.strict.components.Url;
 import ru.strict.services.data.requests.RequestAuthUser;
 import ru.strict.services.data.responses.ResponseUserAuthentication;
 import ru.strict.services.interfaces.IServiceAuthentication;
+import ru.strict.services.interfaces.IServiceToken;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,9 @@ public class AuthenticationController {
 
     @Autowired
     private AuthorizationValidator authorizationValidator;
+
+    @Autowired
+    private IServiceToken serviceToken;
 
     @RequestMapping(value="/auth", method=RequestMethod.GET)
     public ModelAndView index(){
@@ -79,6 +83,7 @@ public class AuthenticationController {
                                @CookieValue(value = "libraryStrict_RefreshToken", required = false) Cookie cookieRefreshToken,
                                HttpServletRequest httpRequest, HttpServletResponse httpResponse){
         ModelAndView model = new ModelAndView();
+
         if(cookieAccessToken != null){
             cookieAccessToken.setMaxAge(0);
             cookieAccessToken.setValue("");
@@ -89,6 +94,8 @@ public class AuthenticationController {
             cookieRefreshToken.setValue("");
             httpResponse.addCookie(cookieRefreshToken);
         }
+
+        serviceToken.deleteToken((String)httpRequest.getSession().getAttribute("accessToken"));
 
         httpRequest.getSession().removeAttribute("accessToken");
 
