@@ -9,9 +9,13 @@ import ru.strict.app.models.authentication.SignInViewModel;
 import ru.strict.app.validations.AuthorizationValidator;
 import ru.strict.components.Url;
 import ru.strict.services.data.requests.RequestAuthUser;
+import ru.strict.services.data.responses.ResponseUserAuthentication;
 import ru.strict.services.interfaces.IServiceAuthentication;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AuthenticationController {
@@ -25,27 +29,7 @@ public class AuthenticationController {
     @RequestMapping(value="/auth", method=RequestMethod.GET)
     public ModelAndView index(){
         ModelAndView model = new ModelAndView();
-        String resultPage = "authentication/index";
-        /*if(!ValidateBaseValue.isNotEmptyOrNull(accessToken)){
-            if(cookieAccessToken == null){
-                if(cookieRefreshToken == null){
-                    // Выполнить авторизацию
-                }else{
-                    // Проверить refreshToken
-                    // Если всё норм сгенерировать новые токены
-                    // Иначе перейти на страницу авторизации
-                }
-            }else{
-                // Получить accessToken из куки и выполнить проверку как ниже
-            }
-        }else{
-            // Проверить accessToken, если он не вылидный, тогда получить новый accessToken используя refreshToken
-            // Проверить refreshToken, если он не вылидный, тогда отправить на страницу авторизации
-            //resultPage = "books/index";
-        }*/
-
-        model.setViewName(resultPage);
-
+        model.setViewName("authentication/index");
         return model;
     }
 
@@ -53,7 +37,8 @@ public class AuthenticationController {
     @ResponseBody
     public Object signIn(@RequestBody SignInViewModel data,
                          HttpServletResponse httpResponse,
-                         BindingResult resultValidation){
+                         BindingResult resultValidation,
+                         HttpSession session){
         Object result = null;
 
         authorizationValidator.validate(data, resultValidation);
@@ -63,7 +48,19 @@ public class AuthenticationController {
             result = resultValidation.getAllErrors();
         }else {
             RequestAuthUser request = new RequestAuthUser(data.getUsername(), data.getPassword());
-            if (serviceAuthentication.authUser(request)) {
+            ResponseUserAuthentication responseUserAuthentication = serviceAuthentication.authUser(request);
+
+            if (responseUserAuthentication != null) {
+                Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserAuthentication.getAccessToken());
+                cookieAccessToken.setMaxAge(259200);
+                httpResponse.addCookie(cookieAccessToken);
+
+                Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserAuthentication.getRefreshToken());
+                cookieRefreshToken.setMaxAge(7776000);
+                httpResponse.addCookie(cookieRefreshToken);
+
+                session.setAttribute("accessToken", responseUserAuthentication.getAccessToken());
+
                 result = new Url("books");
             }else{
                 httpResponse.setStatus(400);
@@ -75,5 +72,28 @@ public class AuthenticationController {
         }
 
         return result;
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout(@CookieValue(value = "libraryStrict_AccessToken", required = false) Cookie cookieAccessToken,
+                               @CookieValue(value = "libraryStrict_RefreshToken", required = false) Cookie cookieRefreshToken,
+                               HttpServletRequest httpRequest, HttpServletResponse httpResponse){
+        ModelAndView model = new ModelAndView();
+        if(cookieAccessToken != null){
+            cookieAccessToken.setMaxAge(0);
+            cookieAccessToken.setValue("");
+            httpResponse.addCookie(cookieAccessToken);
+        }
+        if(cookieRefreshToken != null){
+            cookieRefreshToken.setMaxAge(0);
+            cookieRefreshToken.setValue("");
+            httpResponse.addCookie(cookieRefreshToken);
+        }
+
+        httpRequest.getSession().removeAttribute("accessToken");
+
+        model.setViewName("redirect:/books");
+
+        return model;
     }
 }
