@@ -4,12 +4,6 @@
     request.setCharacterEncoding("UTF-8");
 %>
 
-<div class="layout_banner">
-    <q class="quote"> Книга - великая вещь, пока человек умеет ею пользоваться </q>
-    <div class="banner_image banner_image_book"></div>
-    <p class="info">
-        +
-        <span class="info_books1">9999</span>
-        <span class="info_books2">книг</span>
-    </p>
-</div>
+<jsp:include page="../templates/_layout_banner.jsp">
+    <jsp:param name="content" value="books/banner_content"/>
+</jsp:include>

@@ -1,5 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<head></head>
+
+<head>
+    <style>
+        <%@include file="../../resources/css/active/book.css"%>
+    </style>
+    <script type="text/javascript">
+        <%@include file="../../resources/scripts/book.js"%>
+    </script>
+</head>
+
 <%
     request.setCharacterEncoding("UTF-8");
 %>

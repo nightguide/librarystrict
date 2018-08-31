@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
+<head>
+    <style>
+        <%@include file="../../resources/css/active/genres.css"%>
+    </style>
+</head>
+
 <%
     request.setCharacterEncoding("UTF-8");
 %>
