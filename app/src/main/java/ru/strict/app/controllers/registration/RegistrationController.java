@@ -41,14 +41,14 @@ public class RegistrationController{
     @RequestMapping(value="/registration", method=RequestMethod.POST)
     @ResponseBody
     public Object signUp(@RequestBody SignUpViewModel data,
-                              HttpServletResponse response,
+                              HttpServletResponse httpResponse,
                               BindingResult resultValidation){
         Object result = null;
 
         registrationValidator.validate(data, resultValidation);
 
         if(resultValidation.hasErrors()){
-            response.setStatus(400);
+            httpResponse.setStatus(400);
             result = resultValidation.getAllErrors();
         }else {
             RequestCreateUser request = new RequestCreateUser();
@@ -64,11 +64,11 @@ public class RegistrationController{
             if (responseUserRegistration != null) {
                 Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserRegistration.getAccessToken());
                 cookieAccessToken.setMaxAge(259200);
-                response.addCookie(cookieAccessToken);
+                httpResponse.addCookie(cookieAccessToken);
 
                 Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserRegistration.getRefreshToken());
                 cookieRefreshToken.setMaxAge(7776000);
-                response.addCookie(cookieRefreshToken);
+                httpResponse.addCookie(cookieRefreshToken);
                 result = new Url("auth");
             }
         }
