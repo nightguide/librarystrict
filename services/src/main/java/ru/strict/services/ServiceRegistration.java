@@ -41,7 +41,9 @@ public class ServiceRegistration implements IServiceRegistration {
 
                 DtoToken token = repositoryUser.createUser(user, profile);
 
-                result = new ResponseUserRegistration(token.getAccessToken(), token.getRefreshToken());
+                if(token != null) {
+                    result = new ResponseUserRegistration(token.getAccessToken(), token.getRefreshToken());
+                }
             }
         }
 

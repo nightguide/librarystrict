@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import ru.strict.app.validations.RegistrationValidator;
 import ru.strict.app.models.registration.SignUpViewModel;
+import ru.strict.components.Url;
 import ru.strict.services.data.requests.RequestCreateUser;
 import ru.strict.services.data.responses.ResponseUserRegistration;
 import ru.strict.services.interfaces.IServiceRegistration;
@@ -18,6 +19,7 @@ import ru.strict.services.interfaces.IServiceRegistration;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -41,8 +43,6 @@ public class RegistrationController{
     public Object signUp(@RequestBody SignUpViewModel data,
                               HttpServletResponse response,
                               BindingResult resultValidation){
-        ModelAndView model = new ModelAndView();
-
         registrationValidator.validate(data, resultValidation);
 
         if(resultValidation.hasErrors()){
@@ -61,16 +61,19 @@ public class RegistrationController{
         request.setMiddlename(data.getMiddlename());
         ResponseUserRegistration responseUserRegistration = serviceRegistration.createUser((request));
 
-        Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserRegistration.getAccessToken());
-        cookieAccessToken.setMaxAge(259200);
-        response.addCookie(cookieAccessToken);
+        Object result = null;
 
-        Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserRegistration.getRefreshToken());
-        cookieRefreshToken.setMaxAge(7776000);
-        response.addCookie(cookieRefreshToken);
+        if(responseUserRegistration != null) {
+            Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserRegistration.getAccessToken());
+            cookieAccessToken.setMaxAge(259200);
+            response.addCookie(cookieAccessToken);
 
-        model.setViewName("redirect:/auth");
+            Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserRegistration.getRefreshToken());
+            cookieRefreshToken.setMaxAge(7776000);
+            response.addCookie(cookieRefreshToken);
+            result = new Url("auth");
+        }
 
-        return data;
+        return result;
     }
 }

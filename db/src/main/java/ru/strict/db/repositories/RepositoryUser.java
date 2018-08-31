@@ -25,7 +25,7 @@ public class RepositoryUser
         implements IRepositoryUser {
 
     @Autowired
-    private IRepositoryExtension<UUID, DtoUser> repositoryUser;
+    private ru.strict.db.core.repositories.interfaces.IRepositoryUser<UUID, DtoUser> repositoryUser;
 
     @Autowired
     private IRepositoryExtension<UUID, DtoProfile> repositoryProfile;

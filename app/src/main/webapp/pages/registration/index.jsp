@@ -72,10 +72,10 @@
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function(data){
-                console.log(data.responseJSON);
+                window.location.replace(data.url)
             },
             error: function(data){
-                console.log(data.responseJSON);
+                console.log('error');
                 displayErrorsToForm('#reg_form', data.responseJSON);
             }
         });
