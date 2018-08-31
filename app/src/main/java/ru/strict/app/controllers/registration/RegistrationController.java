@@ -43,34 +43,34 @@ public class RegistrationController{
     public Object signUp(@RequestBody SignUpViewModel data,
                               HttpServletResponse response,
                               BindingResult resultValidation){
+        Object result = null;
+
         registrationValidator.validate(data, resultValidation);
 
         if(resultValidation.hasErrors()){
             response.setStatus(400);
-            return resultValidation.getAllErrors();
-        }
+            result = resultValidation.getAllErrors();
+        }else {
+            RequestCreateUser request = new RequestCreateUser();
+            request.setUsername(data.getUsername());
+            request.setEmail(data.getEmail());
+            request.setPassword(data.getPassword());
+            request.setPasswordRetry(data.getPasswordRetry());
+            request.setName(data.getName());
+            request.setSurname(data.getSurname());
+            request.setMiddlename(data.getMiddlename());
+            ResponseUserRegistration responseUserRegistration = serviceRegistration.createUser((request));
 
-        RequestCreateUser request = new RequestCreateUser();
-        request.setUsername(data.getUsername());
-        request.setEmail(data.getEmail());
-        request.setPassword(data.getPassword());
-        request.setPasswordRetry(data.getPasswordRetry());
-        request.setName(data.getName());
-        request.setSurname(data.getSurname());
-        request.setMiddlename(data.getMiddlename());
-        ResponseUserRegistration responseUserRegistration = serviceRegistration.createUser((request));
+            if (responseUserRegistration != null) {
+                Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserRegistration.getAccessToken());
+                cookieAccessToken.setMaxAge(259200);
+                response.addCookie(cookieAccessToken);
 
-        Object result = null;
-
-        if(responseUserRegistration != null) {
-            Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserRegistration.getAccessToken());
-            cookieAccessToken.setMaxAge(259200);
-            response.addCookie(cookieAccessToken);
-
-            Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserRegistration.getRefreshToken());
-            cookieRefreshToken.setMaxAge(7776000);
-            response.addCookie(cookieRefreshToken);
-            result = new Url("auth");
+                Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserRegistration.getRefreshToken());
+                cookieRefreshToken.setMaxAge(7776000);
+                response.addCookie(cookieRefreshToken);
+                result = new Url("auth");
+            }
         }
 
         return result;
