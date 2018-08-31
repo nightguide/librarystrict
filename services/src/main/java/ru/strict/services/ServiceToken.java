@@ -1,5 +1,7 @@
 package ru.strict.services;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strict.components.TokenInfo;
@@ -63,5 +65,49 @@ public class ServiceToken implements IServiceToken {
         repositoryToken.delete(token.getId());
 
         return createToken(new RequestCreateToken(token.getUserId(), token.getRoleUserId()));
+    }
+
+    @Override
+    public boolean isValidAccessToken(String accessToken) {
+        boolean result = true;
+
+        Date currentDate = new Date();
+
+        DtoJWTUserToken<UUID> dbToken = repositoryToken.readByAccessToken(accessToken);
+        Jws<Claims> checkTokenData = UtilJWTToken.decodeToken(dbToken.getSecret(), accessToken);
+
+        if(!checkTokenData.getBody().getId().equals(dbToken.getId().toString())){
+            result = false;
+        }
+        if(!checkTokenData.getBody().getExpiration().equals(dbToken.getExpireTimeAccess())){
+            result = false;
+        }else{
+            if(checkTokenData.getBody().getExpiration().before(currentDate)){
+                result = false;
+            }
+        }
+        if(!checkTokenData.getBody().getIssuedAt().equals(dbToken.getIssuedAt())){
+            result = false;
+        }
+        if(!checkTokenData.getBody().getAudience().equals(dbToken.getAudience())){
+            result = false;
+        }
+        if(!checkTokenData.getBody().getSubject().equals(dbToken.getSubject())){
+            result = false;
+        }
+        if(!checkTokenData.getBody().getNotBefore().equals(dbToken.getNotBefore())){
+            result = false;
+        }
+        if(!checkTokenData.getBody().getIssuer().equals(dbToken.getIssuer())){
+            result = false;
+        }
+        if(!checkTokenData.getHeader().getAlgorithm().equals(dbToken.getAlgorithm())){
+            result = false;
+        }
+        if(!checkTokenData.getHeader().getType().equals(dbToken.getType())){
+            result = false;
+        }
+
+        return result;
     }
 }

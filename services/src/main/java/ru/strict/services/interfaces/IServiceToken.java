@@ -7,4 +7,5 @@ public interface IServiceToken {
     ResponseCreateToken createToken(RequestCreateToken request);
     void deleteToken(String accessToken);
     ResponseCreateToken updateTokenByRefresh(String refreshToken);
+    boolean isValidAccessToken(String accessToken);
 }

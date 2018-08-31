@@ -7,10 +7,7 @@ import ru.strict.services.data.responses.ResponseCreateToken;
 import ru.strict.services.interfaces.IServiceToken;
 import ru.strict.validates.ValidateBaseValue;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.util.Arrays;
 
 public class TokenInterceptor extends HandlerInterceptorAdapter {
@@ -25,9 +22,9 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         boolean result = true;
 
         String accessToken = "";
+        HttpSession session = request.getSession();
 
         if (request.getMethod().equals("GET")) {
-            HttpSession session = request.getSession();
             accessToken = (String) session.getAttribute("accessToken");
 
             if (!ValidateBaseValue.isNotEmptyOrNull(accessToken)) {
@@ -36,25 +33,21 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                         .findFirst().orElse(null);
 
                 if (cookieAccessToken == null) {
-                    Cookie cookieRefreshToken = Arrays.stream(request.getCookies())
-                            .filter(cookie -> cookie.getName().equals("libraryStrict_RefreshToken"))
-                            .findFirst().orElse(null);
-
-                    if (cookieRefreshToken != null) {
-                        ResponseCreateToken newToken =
-                                serviceToken.updateTokenByRefresh(cookieRefreshToken.getValue());
-                        if(newToken != null){
-                            accessToken = newToken.getAccessToken();
-                        }
-                    }
+                    accessToken = createAccessTokenByRefresh(request);
                 } else {
-                    session.setAttribute("accessToken", cookieAccessToken.getValue());
+                    if(serviceToken.isValidAccessToken(cookieAccessToken.getValue())) {
+                        accessToken = cookieAccessToken.getValue();
+                    }else{
+                        accessToken = createAccessTokenByRefresh(request);
+                    }
                 }
             }
         }
 
-        if(accessToken == null){
+        if(!ValidateBaseValue.isNotEmptyOrNull(accessToken)){
             accessToken = "";
+        }else{
+            session.setAttribute("accessToken", accessToken);
         }
 
         response.setHeader("Authorization","Bearer " + accessToken);
@@ -75,5 +68,22 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                 modelAndView.addObject("user", "user");
             }
         }
+    }
+
+    private String createAccessTokenByRefresh(HttpServletRequest request){
+        String accessToken = "";
+        Cookie cookieRefreshToken = Arrays.stream(request.getCookies())
+                .filter(cookie -> cookie.getName().equals("libraryStrict_RefreshToken"))
+                .findFirst().orElse(null);
+
+        if (cookieRefreshToken != null) {
+            ResponseCreateToken newToken =
+                    serviceToken.updateTokenByRefresh(cookieRefreshToken.getValue());
+            if(newToken != null){
+                accessToken = newToken.getAccessToken();
+            }
+        }
+
+        return accessToken;
     }
 }
