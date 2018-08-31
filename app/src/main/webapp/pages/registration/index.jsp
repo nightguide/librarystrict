@@ -75,7 +75,6 @@
                 window.location.replace(data.url)
             },
             error: function(data){
-                console.log('error');
                 displayErrorsToForm('#reg_form', data.responseJSON);
             }
         });
