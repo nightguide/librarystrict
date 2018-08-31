@@ -47,8 +47,7 @@ public class RegistrationController{
 
         if(resultValidation.hasErrors()){
             response.setStatus(400);
-            List<ObjectError> errors = resultValidation.getAllErrors();
-            return errors;
+            return resultValidation.getAllErrors();
         }
 
         RequestCreateUser request = new RequestCreateUser();
