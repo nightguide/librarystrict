@@ -3,7 +3,8 @@ package ru.strict.app.interceptors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
+import ru.strict.services.data.responses.ResponseCreateToken;
+import ru.strict.services.interfaces.IServiceToken;
 import ru.strict.validates.ValidateBaseValue;
 
 import javax.servlet.http.Cookie;
@@ -11,18 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.UUID;
 
 public class TokenInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private IRepositoryJWTToken<UUID> repositoryJWTToken;
+    private IServiceToken serviceToken;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-        boolean result = false;
+        boolean result = true;
 
         String accessToken = "";
 
@@ -40,20 +40,17 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                             .filter(cookie -> cookie.getName().equals("libraryStrict_RefreshToken"))
                             .findFirst().orElse(null);
 
-                    if (cookieRefreshToken == null) {
-                        result = true;
-                    } else {
-                        result = true;
+                    if (cookieRefreshToken != null) {
+                        ResponseCreateToken newToken =
+                                serviceToken.updateTokenByRefresh(cookieRefreshToken.getValue());
+                        if(newToken != null){
+                            accessToken = newToken.getAccessToken();
+                        }
                     }
                 } else {
                     session.setAttribute("accessToken", cookieAccessToken.getValue());
-                    result = true;
                 }
-            } else {
-                result = true;
             }
-        } else {
-            result = true;
         }
 
         if(accessToken == null){
