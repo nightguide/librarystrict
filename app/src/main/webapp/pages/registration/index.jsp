@@ -50,9 +50,9 @@
                     <p class="error_message"></p>
                 </div>
                 <div class="layout_buttons">
-                    <input id="btn_signin" type="button" value="зарегистрироваться" class="buttons"/>
+                    <input id="btn_reg" type="button" value="зарегистрироваться" class="buttons"/>
                     <div class="separator"></div>
-                    <input type="button" name="btn_reg" value="назад" class="buttons"
+                    <input type="button" name="btn_back" value="назад" class="buttons"
                            onclick="window.location.href='<%=request.getContextPath()%>/auth'"/>
                 </div>
             </form>
@@ -60,7 +60,7 @@
     </div>
 
 <script>
-    $('#btn_signin').click(function(event){
+    $('#btn_reg').click(function(event){
         event.preventDefault()
 
         var formData = convertFormToJSON('#reg_form')
