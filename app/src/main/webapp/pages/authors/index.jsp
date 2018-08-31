@@ -3,7 +3,6 @@
 <head>
     <style>
         <%@include file="../../resources/css/active/authors.css"%>
-        <%@include file="../../resources/css/active/banner.css"%>
     </style>
     <script type="text/javascript">
         <%@include file="../../resources/scripts/authors.js"%>
