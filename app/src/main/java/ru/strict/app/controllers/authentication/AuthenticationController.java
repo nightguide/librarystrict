@@ -10,14 +10,10 @@ import ru.strict.app.validations.AuthorizationValidator;
 import ru.strict.components.Url;
 import ru.strict.services.data.requests.RequestAuthUser;
 import ru.strict.services.interfaces.IServiceAuthentication;
-import ru.strict.validates.ValidateBaseValue;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@SessionAttributes("accessToken")
 public class AuthenticationController {
 
     @Autowired
@@ -27,15 +23,10 @@ public class AuthenticationController {
     private AuthorizationValidator authorizationValidator;
 
     @RequestMapping(value="/auth", method=RequestMethod.GET)
-    public ModelAndView index(@ModelAttribute String accessToken,
-                              @CookieValue(value="libraryStrict_AccessToken", required = false)
-                                      Cookie cookieAccessToken,
-                              @CookieValue(value="libraryStrict_RefreshToken", required = false)
-                                          Cookie cookieRefreshToken,
-                              HttpServletResponse httpResponse){
+    public ModelAndView index(){
         ModelAndView model = new ModelAndView();
         String resultPage = "authentication/index";
-        if(!ValidateBaseValue.isNotEmptyOrNull(accessToken)){
+        /*if(!ValidateBaseValue.isNotEmptyOrNull(accessToken)){
             if(cookieAccessToken == null){
                 if(cookieRefreshToken == null){
                     // Выполнить авторизацию
@@ -51,7 +42,7 @@ public class AuthenticationController {
             // Проверить accessToken, если он не вылидный, тогда получить новый accessToken используя refreshToken
             // Проверить refreshToken, если он не вылидный, тогда отправить на страницу авторизации
             //resultPage = "books/index";
-        }
+        }*/
 
         model.setViewName(resultPage);
 
@@ -84,10 +75,5 @@ public class AuthenticationController {
         }
 
         return result;
-    }
-
-    @ModelAttribute("accessToken")
-    private String defaultAccessToken(){
-        return null;
     }
 }
