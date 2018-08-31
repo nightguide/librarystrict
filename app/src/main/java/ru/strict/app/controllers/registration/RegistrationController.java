@@ -2,9 +2,12 @@ package ru.strict.app.controllers.registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ru.strict.app.controllers.RegValidator;
 import ru.strict.app.models.registration.SignUpViewModel;
 import ru.strict.services.data.requests.RequestCreateUser;
 import ru.strict.services.data.responses.ResponseUserRegistration;
@@ -19,6 +22,9 @@ public class RegistrationController{
     @Autowired
     private IServiceRegistration serviceRegistration;
 
+    @Autowired
+    private RegValidator regValidator;
+
     @RequestMapping(value="/registration", method=RequestMethod.GET)
     public ModelAndView index(){
         ModelAndView model = new ModelAndView();
@@ -27,7 +33,9 @@ public class RegistrationController{
     }
 
     @RequestMapping(value="/registration", method=RequestMethod.POST)
-    public ModelAndView signUp(SignUpViewModel data, HttpServletResponse response){
+    public ModelAndView signUp(@RequestBody SignUpViewModel data,
+                               HttpServletResponse response,
+                               BindingResult resultValidation){
         ModelAndView model = new ModelAndView();
 
         RequestCreateUser request = new RequestCreateUser();
