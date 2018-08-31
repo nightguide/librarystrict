@@ -59,26 +59,26 @@
         </div>
     </div>
 
-<script>
-    $('#btn_reg').click(function(event){
-        event.preventDefault()
+    <script>
+        $('#btn_reg').click(function(event){
+            event.preventDefault()
 
-        var formData = convertFormToJSON('#reg_form')
+            var formData = convertFormToJSON('#reg_form')
 
-        $.ajax({
-            type: 'POST',
-            url: '/registration',
-            dataType: 'json',
-            contentType: 'application/json',
-            data: JSON.stringify(formData),
-            success: function(data){
-                window.location.replace(data.url)
-            },
-            error: function(data){
-                displayErrorsToForm('#reg_form', data.responseJSON);
-            }
+            $.ajax({
+                type: 'POST',
+                url: '/registration',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(data){
+                    window.location.replace(data.url)
+                },
+                error: function(data){
+                    displayErrorsToForm('#reg_form', data.responseJSON);
+                }
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
