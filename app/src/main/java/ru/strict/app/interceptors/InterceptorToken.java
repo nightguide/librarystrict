@@ -10,10 +10,13 @@ import ru.strict.validates.ValidateBaseValue;
 import javax.servlet.http.*;
 import java.util.Arrays;
 
-public class TokenInterceptor extends HandlerInterceptorAdapter {
+public class InterceptorToken extends HandlerInterceptorAdapter {
 
-    @Autowired
     private IServiceToken serviceToken;
+
+    public InterceptorToken(IServiceToken serviceToken) {
+        this.serviceToken = serviceToken;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -33,12 +36,16 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                         .findFirst().orElse(null);
 
                 if (cookieAccessToken == null) {
-                    accessToken = createAccessTokenByRefresh(request);
+                    accessToken = createAccessTokenByRefresh(request, response);
                 } else {
                     if(serviceToken.isValidAccessToken(cookieAccessToken.getValue())) {
                         accessToken = cookieAccessToken.getValue();
                     }else{
-                        accessToken = createAccessTokenByRefresh(request);
+                        cookieAccessToken.setValue("");
+                        cookieAccessToken.setMaxAge(0);
+                        response.addCookie(cookieAccessToken);
+
+                        accessToken = createAccessTokenByRefresh(request, response);
                     }
                 }
             }
@@ -70,7 +77,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-    private String createAccessTokenByRefresh(HttpServletRequest request){
+    private String createAccessTokenByRefresh(HttpServletRequest request, HttpServletResponse response){
         String accessToken = "";
         Cookie cookieRefreshToken = Arrays.stream(request.getCookies())
                 .filter(cookie -> cookie.getName().equals("libraryStrict_RefreshToken"))
@@ -81,6 +88,10 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                     serviceToken.updateTokenByRefresh(cookieRefreshToken.getValue());
             if(newToken != null){
                 accessToken = newToken.getAccessToken();
+            }else{
+                cookieRefreshToken.setValue("");
+                cookieRefreshToken.setMaxAge(0);
+                response.addCookie(cookieRefreshToken);
             }
         }
 
