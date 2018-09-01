@@ -1,8 +1,8 @@
 package ru.strict.services.data;
 
-import ru.strict.file.PropertiesFileReader;
+import ru.strict.file.PropertiesResourceFileReader;
 
-public class JWTConfig extends PropertiesFileReader {
+public class JWTConfig extends PropertiesResourceFileReader {
 
     private static JWTConfig instance;
 
@@ -46,5 +46,10 @@ public class JWTConfig extends PropertiesFileReader {
 
     public int getExpireDaysRefresh() {
         return expireDaysRefresh;
+    }
+
+    @Override
+    protected Class getThisClass() {
+        return this.getClass();
     }
 }

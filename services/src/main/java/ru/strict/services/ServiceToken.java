@@ -93,36 +93,40 @@ public class ServiceToken implements IServiceToken {
         if(dbToken != null) {
             Jws<Claims> checkTokenData = UtilJWTToken.decodeToken(dbToken.getSecret(), accessToken);
 
-            if (!checkTokenData.getBody().getId().equals(dbToken.getId().toString())) {
-                result = false;
-            }
-            if (!checkTokenData.getBody().getExpiration().equals(dbToken.getExpireTimeAccess())) {
-                result = false;
-            } else {
-                if (checkTokenData.getBody().getExpiration().before(currentDate)) {
+            if(checkTokenData != null) {
+                if (!checkTokenData.getBody().getId().equals(dbToken.getId().toString())) {
                     result = false;
                 }
-            }
-            if (!checkTokenData.getBody().getIssuedAt().equals(dbToken.getIssuedAt())) {
-                result = false;
-            }
-            if (!(checkTokenData.getBody().getAudience() == null && dbToken.getAudience() == null) &&
-                    !checkTokenData.getBody().getAudience().equals(dbToken.getAudience())) {
-                result = false;
-            }
-            if (!(checkTokenData.getBody().getSubject() == null && dbToken.getSubject() == null) &&
-                    !checkTokenData.getBody().getSubject().equals(dbToken.getSubject())) {
-                result = false;
-            }
-            if (!(checkTokenData.getBody().getNotBefore() == null && dbToken.getNotBefore() == null) &&
-                    !checkTokenData.getBody().getNotBefore().equals(dbToken.getNotBefore())) {
-                result = false;
-            }
-            if (!(checkTokenData.getBody().getIssuer() == null && dbToken.getIssuer() == null) &&
-                    !checkTokenData.getBody().getIssuer().equals(dbToken.getIssuer())) {
-                result = false;
-            }
-            if (!checkTokenData.getHeader().getAlgorithm().equals(dbToken.getAlgorithm())) {
+                if (!checkTokenData.getBody().getExpiration().equals(dbToken.getExpireTimeAccess())) {
+                    result = false;
+                } else {
+                    if (checkTokenData.getBody().getExpiration().before(currentDate)) {
+                        result = false;
+                    }
+                }
+                if (!checkTokenData.getBody().getIssuedAt().equals(dbToken.getIssuedAt())) {
+                    result = false;
+                }
+                if (!(checkTokenData.getBody().getAudience() == null && dbToken.getAudience() == null) &&
+                        !checkTokenData.getBody().getAudience().equals(dbToken.getAudience())) {
+                    result = false;
+                }
+                if (!(checkTokenData.getBody().getSubject() == null && dbToken.getSubject() == null) &&
+                        !checkTokenData.getBody().getSubject().equals(dbToken.getSubject())) {
+                    result = false;
+                }
+                if (!(checkTokenData.getBody().getNotBefore() == null && dbToken.getNotBefore() == null) &&
+                        !checkTokenData.getBody().getNotBefore().equals(dbToken.getNotBefore())) {
+                    result = false;
+                }
+                if (!(checkTokenData.getBody().getIssuer() == null && dbToken.getIssuer() == null) &&
+                        !checkTokenData.getBody().getIssuer().equals(dbToken.getIssuer())) {
+                    result = false;
+                }
+                if (!checkTokenData.getHeader().getAlgorithm().equals(dbToken.getAlgorithm())) {
+                    result = false;
+                }
+            }else{
                 result = false;
             }
         }else{

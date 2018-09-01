@@ -34,10 +34,20 @@ public abstract class PropertiesFileReader {
     }
 
     public String readValue(String key){
-        String result = UtilProperties.getValue(getSuffixFileName(), key);
+        String result = UtilProperties.getValue(getPathToSuffixFile(), key);
         if(!ValidateBaseValue.isNotEmptyOrNull(result)){
-            result = UtilProperties.getValue(getFileName(), key);
+            result = UtilProperties.getValue(getPathToFile(), key);
         }
         return result;
+    }
+
+    protected abstract String getPathToDirectory();
+
+    public String getPathToFile(){
+        return String.format("%s/%s", getPathToDirectory(), getFileName());
+    }
+
+    public String getPathToSuffixFile(){
+        return String.format("%s/%s", getPathToDirectory(), getSuffixFileName());
     }
 }

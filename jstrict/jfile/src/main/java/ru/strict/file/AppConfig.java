@@ -2,7 +2,7 @@ package ru.strict.file;
 
 import ru.strict.file.data.AppEnvironment;
 
-public class AppConfig extends PropertiesFileReader {
+public class AppConfig extends PropertiesResourceFileReader {
 
     private AppEnvironment environment;
 
@@ -24,6 +24,11 @@ public class AppConfig extends PropertiesFileReader {
     public AppConfig(String appConfigFileName, AppEnvironment environment) {
         super(appConfigFileName, environment.getValue());
         this.environment = environment;
+    }
+
+    @Override
+    protected Class getThisClass() {
+        return this.getClass();
     }
 
     public String getEnvironmentFileName(){
