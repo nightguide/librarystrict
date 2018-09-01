@@ -72,7 +72,9 @@ public class ServiceToken implements IServiceToken {
         DtoJWTUserToken<UUID> token = repositoryToken.readByRefreshToken(refreshToken);
         if(token != null) {
             repositoryToken.delete(token.getId());
-            result = createToken(new RequestCreateToken(token.getUserId(), token.getRoleUserId()));
+            if(token.getExpireTimeRefresh().after(new Date())) {
+                result = createToken(new RequestCreateToken(token.getUserId(), token.getRoleUserId()));
+            }
         }
 
         return result;
