@@ -8,6 +8,7 @@ import ru.strict.components.TokenInfo;
 import ru.strict.db.core.dto.DtoJWTUserToken;
 import ru.strict.db.core.dto.DtoToken;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
+import ru.strict.services.data.JWTConfig;
 import ru.strict.services.data.requests.RequestCreateToken;
 import ru.strict.services.data.responses.ResponseCreateToken;
 import ru.strict.services.interfaces.IServiceToken;
@@ -38,13 +39,15 @@ public class ServiceToken implements IServiceToken {
         token.setId(UUID.randomUUID());
         token.setRefreshToken(UUID.randomUUID().toString());
         token.setIssuedAt(currentDate);
-        token.setExpireTimeRefresh(UtilDate.addMonthsToDate(currentDate, 3));
-        token.setExpireTimeAccess(UtilDate.addDaysToDate(currentDate, 3));
+        token.setExpireTimeRefresh(UtilDate.addDaysToDate(currentDate,
+                JWTConfig.instance().getExpireDaysRefresh()));
+        token.setExpireTimeAccess(UtilDate.addDaysToDate(currentDate,
+                JWTConfig.instance().getExpireDaysAccess()));
         token.setRoleUserId(request.getRoleId());
         token.setUserId(request.getUserId());
-        token.setIssuer("LibraryStrict");
-        token.setSubject("USER");
-        token.setType("JWT");
+        token.setIssuer(JWTConfig.instance().getIssuer());
+        token.setSubject(JWTConfig.instance().getSubject());
+        token.setType(JWTConfig.instance().getType());
         TokenInfo accessTokenInfo = UtilJWTToken.createToken(token.getId(), token.getExpireTimeAccess(),
                 token.getIssuedAt(), token.getIssuer(), token.getSubject(),
                 token.getNotBefore(), token.getAudience());
