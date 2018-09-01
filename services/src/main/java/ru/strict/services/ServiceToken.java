@@ -32,7 +32,7 @@ public class ServiceToken implements IServiceToken {
 
     @Override
     public ResponseCreateToken createToken(RequestCreateToken request) {
-        Date currentDate = new Date();
+        Date currentDate = UtilDate.getDateWithoutTime(new Date());
 
         DtoJWTUserToken<UUID> token = new DtoJWTUserToken();
         token.setId(UUID.randomUUID());
@@ -101,22 +101,23 @@ public class ServiceToken implements IServiceToken {
             if (!checkTokenData.getBody().getIssuedAt().equals(dbToken.getIssuedAt())) {
                 result = false;
             }
-            if (!checkTokenData.getBody().getAudience().equals(dbToken.getAudience())) {
+            if (!(checkTokenData.getBody().getAudience() == null && dbToken.getAudience() == null) &&
+                    !checkTokenData.getBody().getAudience().equals(dbToken.getAudience())) {
                 result = false;
             }
-            if (!checkTokenData.getBody().getSubject().equals(dbToken.getSubject())) {
+            if (!(checkTokenData.getBody().getSubject() == null && dbToken.getSubject() == null) &&
+                    !checkTokenData.getBody().getSubject().equals(dbToken.getSubject())) {
                 result = false;
             }
-            if (!checkTokenData.getBody().getNotBefore().equals(dbToken.getNotBefore())) {
+            if (!(checkTokenData.getBody().getNotBefore() == null && dbToken.getNotBefore() == null) &&
+                    !checkTokenData.getBody().getNotBefore().equals(dbToken.getNotBefore())) {
                 result = false;
             }
-            if (!checkTokenData.getBody().getIssuer().equals(dbToken.getIssuer())) {
+            if (!(checkTokenData.getBody().getIssuer() == null && dbToken.getIssuer() == null) &&
+                    !checkTokenData.getBody().getIssuer().equals(dbToken.getIssuer())) {
                 result = false;
             }
             if (!checkTokenData.getHeader().getAlgorithm().equals(dbToken.getAlgorithm())) {
-                result = false;
-            }
-            if (!checkTokenData.getHeader().getType().equals(dbToken.getType())) {
                 result = false;
             }
         }else{

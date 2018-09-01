@@ -14,7 +14,8 @@ public class UtilJWTToken {
     public static TokenInfo createToken(UUID id, Date expireTimeAccess, Date issuedAt,
                                         String issuer, String subject, Date notBefore, String audience){
 
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        SignatureAlgorithm algorithm = SignatureAlgorithm.HS256;
+        Key key = Keys.secretKeyFor(algorithm);
 
         JwtBuilder builder = Jwts.builder();
 
@@ -43,7 +44,7 @@ public class UtilJWTToken {
         String secret = new String(key.getEncoded());
         String token = builder.signWith(key).compact();
 
-        return new TokenInfo(token, secret, key.getAlgorithm());
+        return new TokenInfo(token, secret, algorithm.name());
     }
 
     public static Jws<Claims> decodeToken(String key, String token){
@@ -56,5 +57,4 @@ public class UtilJWTToken {
 
         return result;
     }
-
 }

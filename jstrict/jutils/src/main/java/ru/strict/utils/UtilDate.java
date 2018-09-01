@@ -1,5 +1,8 @@
 package ru.strict.utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -9,6 +12,17 @@ import java.util.TimeZone;
  * Управление датами
  */
 public class UtilDate {
+
+    public static Date getDateWithoutTime(Date date){
+        Date result = null;
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            result = formatter.parse(formatter.format(date));
+        } catch (ParseException e) {
+            result = null;
+        }
+        return result;
+    }
 
     /**
      * Получить текущее число месяца
