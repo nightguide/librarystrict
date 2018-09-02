@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import ru.strict.app.interceptors.InterceptorLogging;
 
 @EnableWebMvc
 @Configuration
@@ -35,5 +36,6 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new IoC().getTokenInterceptor());
+        registry.addInterceptor(new InterceptorLogging());
     }
 }
