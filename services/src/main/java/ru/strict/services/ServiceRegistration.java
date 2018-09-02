@@ -2,6 +2,7 @@ package ru.strict.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.strict.components.WrapperLogger;
 import ru.strict.db.core.dto.DtoProfile;
 import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.core.dto.DtoUserOnRole;
@@ -20,6 +21,8 @@ import java.util.UUID;
 @Service
 public class ServiceRegistration implements IServiceRegistration {
 
+    private static final WrapperLogger LOGGER = new WrapperLogger(ServiceRegistration.class);
+
     @Autowired
     private IRepositoryUser repositoryUser;
 
@@ -28,6 +31,7 @@ public class ServiceRegistration implements IServiceRegistration {
 
     @Override
     public ResponseUserRegistration createUser(RequestCreateUser request) {
+        LOGGER.info("start an user create");
         ResponseUserRegistration result = null;
 
         if(request != null){
@@ -48,13 +52,19 @@ public class ServiceRegistration implements IServiceRegistration {
                 DtoUserOnRole<UUID> createdUser = repositoryUser.createUser(user, profile);
 
                 if(createdUser != null) {
+                    LOGGER.info("user is created with ID = '%s' and ROLE = '%s'",
+                            createdUser.getUserId().toString(), createdUser.getRoleId().toString());
                     ResponseCreateToken token = serviceToken.createToken(
                             new RequestCreateToken(createdUser.getId(), createdUser.getRoleId()));
 
                     result = new ResponseUserRegistration(token.getAccessToken(), token.getRefreshToken());
+                }else{
+                    LOGGER.error("user not created");
                 }
             }
         }
+
+        LOGGER.info("complete an user create");
 
         return result;
     }

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strict.components.TokenInfo;
+import ru.strict.components.WrapperLogger;
 import ru.strict.db.core.dto.DtoJWTUserToken;
 import ru.strict.db.core.dto.DtoToken;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
@@ -21,6 +22,8 @@ import java.util.UUID;
 @Service
 public class ServiceToken implements IServiceToken {
 
+    private static final WrapperLogger LOGGER = new WrapperLogger(ServiceToken.class);
+
     @Autowired
     private IRepositoryJWTToken<UUID> repositoryToken;
 
@@ -33,6 +36,7 @@ public class ServiceToken implements IServiceToken {
 
     @Override
     public ResponseCreateToken createToken(RequestCreateToken request) {
+        LOGGER.info("start a create of token");
         Date currentDate = UtilDate.getDateWithoutTime(new Date());
 
         DtoJWTUserToken<UUID> token = new DtoJWTUserToken();
@@ -57,7 +61,8 @@ public class ServiceToken implements IServiceToken {
         token.setAlgorithm(accessTokenInfo.getAlgorithm());
 
         repositoryToken.create(token);
-
+        LOGGER.info("token is created '%s' for user '%s'", token.getAccessToken(), request.getUserId().toString());
+        LOGGER.info("complete a create of token");
         return new ResponseCreateToken(token.getAccessToken(), token.getRefreshToken());
     }
 
@@ -71,20 +76,27 @@ public class ServiceToken implements IServiceToken {
 
     @Override
     public ResponseCreateToken updateTokenByRefresh(String refreshToken) {
+        LOGGER.info("start an update of access-token by refresh-token '%s'", refreshToken);
         ResponseCreateToken result = null;
         DtoJWTUserToken<UUID> token = repositoryToken.readByRefreshToken(refreshToken);
         if(token != null) {
             repositoryToken.delete(token.getId());
             if(token.getExpireTimeRefresh().after(new Date())) {
                 result = createToken(new RequestCreateToken(token.getUserId(), token.getRoleUserId()));
+            }else{
+                LOGGER.error("expiration time for refresh-token is over '%s'", refreshToken);
             }
+        }else{
+            LOGGER.error("token not found by refresh-token '%s'", refreshToken);
         }
 
+        LOGGER.info("complete an update of access-token by refresh-token '%s'", refreshToken);
         return result;
     }
 
     @Override
     public boolean isValidAccessToken(String accessToken) {
+        LOGGER.info("start a check of access-token");
         boolean result = true;
 
         Date currentDate = new Date();
@@ -95,43 +107,56 @@ public class ServiceToken implements IServiceToken {
 
             if(checkTokenData != null) {
                 if (!checkTokenData.getBody().getId().equals(dbToken.getId().toString())) {
+                    LOGGER.warn("'token id' not equals");
                     result = false;
                 }
                 if (!checkTokenData.getBody().getExpiration().equals(dbToken.getExpireTimeAccess())) {
+                    LOGGER.warn("'expiration time' for access-token not equals");
                     result = false;
                 } else {
                     if (checkTokenData.getBody().getExpiration().before(currentDate)) {
+                        LOGGER.warn("'expiration time' for access-token is over");
                         result = false;
                     }
                 }
                 if (!checkTokenData.getBody().getIssuedAt().equals(dbToken.getIssuedAt())) {
+                    LOGGER.warn("'issued at' not equals");
                     result = false;
                 }
                 if (!(checkTokenData.getBody().getAudience() == null && dbToken.getAudience() == null) &&
                         !checkTokenData.getBody().getAudience().equals(dbToken.getAudience())) {
+                    LOGGER.warn("'audience' not equals");
                     result = false;
                 }
                 if (!(checkTokenData.getBody().getSubject() == null && dbToken.getSubject() == null) &&
                         !checkTokenData.getBody().getSubject().equals(dbToken.getSubject())) {
+                    LOGGER.warn("'subject' not equals");
                     result = false;
                 }
                 if (!(checkTokenData.getBody().getNotBefore() == null && dbToken.getNotBefore() == null) &&
                         !checkTokenData.getBody().getNotBefore().equals(dbToken.getNotBefore())) {
+                    LOGGER.warn("'not before' not equals");
                     result = false;
                 }
                 if (!(checkTokenData.getBody().getIssuer() == null && dbToken.getIssuer() == null) &&
                         !checkTokenData.getBody().getIssuer().equals(dbToken.getIssuer())) {
+                    LOGGER.warn("'issuer' not equals");
                     result = false;
                 }
                 if (!checkTokenData.getHeader().getAlgorithm().equals(dbToken.getAlgorithm())) {
+                    LOGGER.warn("'algorithm' not equals");
                     result = false;
                 }
             }else{
+                LOGGER.error("fail a decoding of acces-token '%s'", accessToken);
                 result = false;
             }
         }else{
+            LOGGER.error("access-token not found into db '%s'", accessToken);
             result = false;
         }
+
+        LOGGER.info("complete a check of access-token");
 
         return result;
     }
