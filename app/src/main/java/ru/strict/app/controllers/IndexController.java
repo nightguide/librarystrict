@@ -11,7 +11,7 @@ public class IndexController {
     @RequestMapping(value={"/", "/index"}, method=RequestMethod.GET)
     public ModelAndView index(){
         ModelAndView model = new ModelAndView();
-        model.setViewName("redirect:/auth");
+        model.setViewName("redirect:/books");
         return model;
     }
 }

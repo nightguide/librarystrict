@@ -3,12 +3,15 @@ package ru.strict.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strict.db.core.dto.DtoProfile;
-import ru.strict.db.core.dto.DtoToken;
 import ru.strict.db.core.dto.DtoUser;
+import ru.strict.db.core.dto.DtoUserOnRole;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
+import ru.strict.services.data.requests.RequestCreateToken;
 import ru.strict.services.data.requests.RequestCreateUser;
+import ru.strict.services.data.responses.ResponseCreateToken;
 import ru.strict.services.data.responses.ResponseUserRegistration;
 import ru.strict.services.interfaces.IServiceRegistration;
+import ru.strict.services.interfaces.IServiceToken;
 import ru.strict.utils.UtilData;
 import ru.strict.utils.UtilHash;
 
@@ -19,6 +22,9 @@ public class ServiceRegistration implements IServiceRegistration {
 
     @Autowired
     private IRepositoryUser repositoryUser;
+
+    @Autowired
+    private IServiceToken serviceToken;
 
     @Override
     public ResponseUserRegistration createUser(RequestCreateUser request) {
@@ -39,9 +45,12 @@ public class ServiceRegistration implements IServiceRegistration {
                 profile.setMiddlename(UtilData.convertStringFromISOToUTF8(request.getMiddlename()));
                 profile.setUserId(user.getId());
 
-                DtoToken token = repositoryUser.createUser(user, profile);
+                DtoUserOnRole<UUID> createdUser = repositoryUser.createUser(user, profile);
 
-                if(token != null) {
+                if(createdUser != null) {
+                    ResponseCreateToken token = serviceToken.createToken(
+                            new RequestCreateToken(createdUser.getId(), createdUser.getRoleId()));
+
                     result = new ResponseUserRegistration(token.getAccessToken(), token.getRefreshToken());
                 }
             }

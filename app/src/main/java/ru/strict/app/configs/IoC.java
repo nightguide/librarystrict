@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import ru.strict.app.interceptors.InterceptorToken;
 import ru.strict.db.core.common.ConnectionByDbType;
 import ru.strict.db.core.common.GenerateIdType;
 import ru.strict.db.core.common.MapperDtoType;
@@ -16,6 +17,8 @@ import ru.strict.db.core.repositories.IRepositoryNamed;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
 import ru.strict.db.core.repositories.interfaces.IRepositoryUser;
 import ru.strict.db.spring.repositories.*;
+import ru.strict.services.ServiceToken;
+import ru.strict.services.interfaces.IServiceToken;
 
 import javax.sql.DataSource;
 import java.util.UUID;
@@ -86,5 +89,15 @@ public class IoC {
                 new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
         );
+    }
+
+    @Bean
+    public InterceptorToken getTokenInterceptor(){
+        return new InterceptorToken(getServiceToken());
+    }
+
+    @Bean
+    public IServiceToken getServiceToken(){
+        return new ServiceToken(getRepositoryJWTToken());
     }
 }
