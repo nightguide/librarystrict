@@ -63,6 +63,7 @@ public class AuthenticationController {
                 cookieRefreshToken.setMaxAge(7776000);
                 httpResponse.addCookie(cookieRefreshToken);
 
+                session.setMaxInactiveInterval(43200);
                 session.setAttribute("accessToken", responseUserAuthentication.getAccessToken());
 
                 result = new Url("books");

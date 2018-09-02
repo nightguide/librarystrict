@@ -59,16 +59,9 @@ public class RegistrationController{
             request.setName(data.getName());
             request.setSurname(data.getSurname());
             request.setMiddlename(data.getMiddlename());
-            ResponseUserRegistration responseUserRegistration = serviceRegistration.createUser((request));
+            boolean isUserCreated = serviceRegistration.createUser((request));
 
-            if (responseUserRegistration != null) {
-                Cookie cookieAccessToken = new Cookie("libraryStrict_AccessToken", responseUserRegistration.getAccessToken());
-                cookieAccessToken.setMaxAge(259200);
-                httpResponse.addCookie(cookieAccessToken);
-
-                Cookie cookieRefreshToken = new Cookie("libraryStrict_RefreshToken", responseUserRegistration.getRefreshToken());
-                cookieRefreshToken.setMaxAge(7776000);
-                httpResponse.addCookie(cookieRefreshToken);
+            if (isUserCreated) {
                 result = new Url("auth");
             }
         }
