@@ -51,12 +51,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<dependency>
 				<groupId>ru.strict</groupId>
 				<artifactId>jutils</artifactId>
-				<version>0.1.14</version>
+				<version>0.1.15</version>
 			</dependency>
 			<dependency>
 				<groupId>ru.strict</groupId>
 				<artifactId>jfile</artifactId>
-				<version>0.1.0</version>
+				<version>0.1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>ru.strict</groupId>
@@ -66,12 +66,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<dependency>
 				<groupId>ru.strict</groupId>
 				<artifactId>jdb-core</artifactId>
-				<version>0.1.13</version>
+				<version>0.1.14</version>
 			</dependency>
 			<dependency>
 				<groupId>ru.strict</groupId>
 				<artifactId>jdb-spring</artifactId>
-				<version>0.1.8</version>
+				<version>0.1.9</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
