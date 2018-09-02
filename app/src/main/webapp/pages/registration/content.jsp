@@ -11,7 +11,7 @@
 %>
 
 <p class="title">Регистрация</p>
-<form id="reg_form" class="layout_form" action="\registration" method="post">
+<form id="reg_form" class="layout_form">
     <div class="layout_input_fields">
         <input type="text" name="username" placeholder="Введите логин" class="input_text"/>
         <p class="error_message"></p>
