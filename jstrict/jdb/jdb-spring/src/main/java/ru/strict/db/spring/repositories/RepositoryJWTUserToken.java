@@ -51,6 +51,7 @@ public class RepositoryJWTUserToken<ID>
         valuesByColumn.put(13, entity.getRoleUserId());
         return valuesByColumn;
     }
+
     @Override
     public DtoJWTUserToken readByAccessToken(String caption){
         DbRequests requests = new DbRequests(getTableName(), true);
