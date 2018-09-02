@@ -30,9 +30,9 @@ public class ServiceRegistration implements IServiceRegistration {
     private IServiceToken serviceToken;
 
     @Override
-    public ResponseUserRegistration createUser(RequestCreateUser request) {
+    public boolean createUser(RequestCreateUser request) {
         LOGGER.info("start an user create");
-        ResponseUserRegistration result = null;
+        boolean result = false;
 
         if(request != null){
             if(request.getPassword().equals(request.getPasswordRetry())){
@@ -54,10 +54,7 @@ public class ServiceRegistration implements IServiceRegistration {
                 if(createdUser != null) {
                     LOGGER.info("user is created with ID = '%s' and ROLE = '%s'",
                             createdUser.getUserId().toString(), createdUser.getRoleId().toString());
-                    ResponseCreateToken token = serviceToken.createToken(
-                            new RequestCreateToken(createdUser.getId(), createdUser.getRoleId()));
-
-                    result = new ResponseUserRegistration(token.getAccessToken(), token.getRefreshToken());
+                    result = true;
                 }else{
                     LOGGER.error("user not created");
                 }

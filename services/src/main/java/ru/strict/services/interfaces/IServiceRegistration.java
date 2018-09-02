@@ -4,5 +4,5 @@ import ru.strict.services.data.requests.RequestCreateUser;
 import ru.strict.services.data.responses.ResponseUserRegistration;
 
 public interface IServiceRegistration {
-    ResponseUserRegistration createUser(RequestCreateUser request);
+    boolean createUser(RequestCreateUser request);
 }
