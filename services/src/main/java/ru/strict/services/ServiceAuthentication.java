@@ -2,6 +2,7 @@ package ru.strict.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.strict.components.WrapperLogger;
 import ru.strict.db.core.dto.DtoRoleuser;
 import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.core.repositories.IRepositoryNamed;
@@ -21,6 +22,8 @@ import java.util.UUID;
 @Service
 public class ServiceAuthentication implements IServiceAuthentication {
 
+    private static final WrapperLogger LOGGER = new WrapperLogger(ServiceAuthentication.class);
+
     @Autowired
     private IRepositoryUser repositoryUser;
     @Autowired
@@ -30,26 +33,36 @@ public class ServiceAuthentication implements IServiceAuthentication {
 
     @Override
     public ResponseUserAuthentication authUser(RequestAuthUser request) {
+        LOGGER.info("start an user authentication");
         ResponseUserAuthentication result = null;
 
         if(request != null){
             if(ValidateBaseValue.isNotEmptyOrNull(request.getUsername())
                     && ValidateBaseValue.isNotEmptyOrNull(request.getPassword())){
                 DtoUser user = repositoryUser.readByName(request.getUsername());
-                if(user != null
-                        && user.getPasswordEncode().equals(UtilHash.hashMd5(request.getPassword()))){
-
-                    UUID roleUserId = (UUID) repositoryRoleuser.readByName("USER").getId();
-                    ResponseCreateToken responseCreateToken =
-                            serviceToken.createToken(
-                                    new RequestCreateToken((UUID) user.getId(), roleUserId));
-                    result = new ResponseUserAuthentication(
-                            responseCreateToken.getAccessToken(),
-                            responseCreateToken.getRefreshToken()
-                    );
+                if(user != null){
+                    if(user.getPasswordEncode().equals(UtilHash.hashMd5(request.getPassword()))){
+                        UUID roleUserId = (UUID) repositoryRoleuser.readByName("USER").getId();
+                        ResponseCreateToken responseCreateToken =
+                                serviceToken.createToken(
+                                        new RequestCreateToken((UUID) user.getId(), roleUserId));
+                        result = new ResponseUserAuthentication(
+                                responseCreateToken.getAccessToken(),
+                                responseCreateToken.getRefreshToken()
+                        );
+                    }else{
+                        LOGGER.warn("entered a password for user '%s' not valid", request.getUsername());
+                    }
+                }else{
+                    LOGGER.warn("user with name '%s' not found", request.getUsername());
                 }
+            }else{
+                LOGGER.warn("username or password is empty");
             }
+        }else{
+            LOGGER.error("request data for create user is null");
         }
+        LOGGER.info("complete an user authentication");
 
         return result;
     }
