@@ -14,7 +14,7 @@ public class EntityUserOnRole<ID> extends EntityBase<ID> {
     /**
      * Пользователь
      */
-    private EntityUser user;
+    private EntityUser<ID> user;
     /**
      * Идентификатор роли
      */
@@ -22,7 +22,7 @@ public class EntityUserOnRole<ID> extends EntityBase<ID> {
     /**
      * Роль пользователя
      */
-    private EntityRoleuser role;
+    private EntityRoleuser<ID> role;
 
     //<editor-fold defaultState="collapsed" desc="constructors">
     private void initialize(ID userId, ID roleId){
@@ -70,11 +70,11 @@ public class EntityUserOnRole<ID> extends EntityBase<ID> {
         this.userId = userId;
     }
 
-    public EntityUser getUser() {
+    public EntityUser<ID> getUser() {
         return user;
     }
 
-    public void setUser(EntityUser user) {
+    public void setUser(EntityUser<ID> user) {
         this.user = user;
     }
 
@@ -90,11 +90,11 @@ public class EntityUserOnRole<ID> extends EntityBase<ID> {
         this.roleId = roleId;
     }
 
-    public EntityRoleuser getRole() {
+    public EntityRoleuser<ID> getRole() {
         return role;
     }
 
-    public void setRole(EntityRoleuser role) {
+    public void setRole(EntityRoleuser<ID> role) {
         this.role = role;
     }
     //</editor-fold>
@@ -109,8 +109,7 @@ public class EntityUserOnRole<ID> extends EntityBase<ID> {
     public boolean equals(Object obj){
         if(obj!=null && obj instanceof EntityUserOnRole) {
             EntityUserOnRole object = (EntityUserOnRole) obj;
-            return super.equals(object) && userId.equals(object.getUserId()) && roleId.equals(object.getRoleId())
-                    && user.equals(object.getUser()) && role.equals(object.getRole());
+            return super.equals(object) && userId.equals(object.getUserId()) && roleId.equals(object.getRoleId());
         }else
             return false;
     }
@@ -118,7 +117,7 @@ public class EntityUserOnRole<ID> extends EntityBase<ID> {
     @Override
     public int hashCode(){
     	int superHashCode = super.hashCode();
-        return UtilHashCode.createSubHashCode(superHashCode, userId, roleId, user, role);
+        return UtilHashCode.createSubHashCode(superHashCode, userId, roleId);
     }
     //</editor-fold>
 }

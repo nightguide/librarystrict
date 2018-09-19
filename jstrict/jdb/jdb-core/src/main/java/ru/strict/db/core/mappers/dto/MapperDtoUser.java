@@ -1,56 +1,49 @@
 package ru.strict.db.core.mappers.dto;
 
 import ru.strict.db.core.dto.*;
-import ru.strict.db.core.dto.DtoProfile;
-import ru.strict.db.core.dto.DtoRoleuser;
-import ru.strict.db.core.entities.EntityProfile;
-import ru.strict.db.core.entities.EntityRoleuser;
 import ru.strict.db.core.entities.EntityUser;
 
 /**
  * Двухсторонний маппинг объектов типа EntityUser и DtoUser
  */
-public class MapperDtoUser<E extends EntityUser, DTO extends DtoUser>
-        extends MapperDtoUserBase<E, DTO> {
+public class MapperDtoUser<ID> extends MapperDtoBase<ID, EntityUser<ID>, DtoUser<ID>> {
 
-    public MapperDtoUser(){
+    private MapperDtoBase<ID, EntityUser<ID>, DtoUserBase<ID>> mapperBase;
+
+    public MapperDtoUser(MapperDtoBase<ID, EntityUser<ID>, DtoUserBase<ID>> mapperBase) {
         super();
-    }
-
-    public MapperDtoUser(MapperDtoBase<EntityRoleuser, DtoRoleuser> mapperRoleuser
-            , MapperDtoBase<EntityProfile, DtoProfile> mapperProfile){
-        super(mapperRoleuser, mapperProfile);
+        this.mapperBase = mapperBase;
     }
 
     @Override
-    protected EntityUser implementMap(DtoUser dto) {
-        EntityUser baseEntity = super.implementMap(dto);
+    protected EntityUser<ID> implementMap(DtoUser<ID> dto) {
+        EntityUser<ID> baseEntity = mapperBase.map(dto);
 
-        EntityUser entity = new EntityUser();
+        EntityUser<ID> entity = new EntityUser();
         entity.setId(baseEntity.getId());
         entity.setUsername(baseEntity.getUsername());
         entity.setEmail(baseEntity.getEmail());
         entity.setBlocked(baseEntity.isBlocked());
         entity.setDeleted(baseEntity.isDeleted());
         entity.setConfirmEmail(baseEntity.isConfirmEmail());
-        entity.setRolesuser(baseEntity.getRolesuser());
+        entity.setRoles(baseEntity.getRoles());
         entity.setProfile(baseEntity.getProfile());
         entity.setPasswordEncode(dto.getPasswordEncode());
         return entity;
     }
 
     @Override
-    protected DtoUser implementMap(EntityUser entity) {
-        DtoUserBase baseDto = super.implementMap(entity);
+    protected DtoUser<ID> implementMap(EntityUser<ID> entity) {
+        DtoUserBase<ID> baseDto = mapperBase.map(entity);
 
-        DtoUser dto = new DtoUser();
+        DtoUser<ID> dto = new DtoUser();
         dto.setId(baseDto.getId());
         dto.setUsername(baseDto.getUsername());
         dto.setEmail(baseDto.getEmail());
         dto.setBlocked(baseDto.isBlocked());
         dto.setDeleted(baseDto.isDeleted());
         dto.setConfirmEmail(baseDto.isConfirmEmail());
-        dto.setRolesuser(baseDto.getRolesuser());
+        dto.setRoles(baseDto.getRoles());
         dto.setProfile(baseDto.getProfile());
         dto.setPasswordEncode(entity.getPasswordEncode());
         return dto;

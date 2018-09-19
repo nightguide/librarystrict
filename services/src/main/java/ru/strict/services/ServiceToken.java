@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strict.components.TokenInfo;
 import ru.strict.components.WrapperLogger;
-import ru.strict.db.core.dto.DtoJWTUserToken;
+import ru.strict.db.core.dto.DtoJWTToken;
 import ru.strict.db.core.dto.DtoToken;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
 import ru.strict.services.data.JWTConfig;
@@ -39,7 +39,7 @@ public class ServiceToken implements IServiceToken {
         LOGGER.info("start a create of token");
         Date currentDate = UtilDate.getDateWithoutTime(new Date());
 
-        DtoJWTUserToken<UUID> token = new DtoJWTUserToken();
+        DtoJWTToken<UUID> token = new DtoJWTToken();
         token.setId(UUID.randomUUID());
         token.setRefreshToken(UUID.randomUUID().toString());
         token.setIssuedAt(currentDate);
@@ -78,7 +78,7 @@ public class ServiceToken implements IServiceToken {
     public ResponseCreateToken updateTokenByRefresh(String refreshToken) {
         LOGGER.info("start an update of access-token by refresh-token '%s'", refreshToken);
         ResponseCreateToken result = null;
-        DtoJWTUserToken<UUID> token = repositoryToken.readByRefreshToken(refreshToken);
+        DtoJWTToken<UUID> token = repositoryToken.readByRefreshToken(refreshToken);
         if(token != null) {
             repositoryToken.delete(token.getId());
             if(token.getExpireTimeRefresh().after(new Date())) {
@@ -101,7 +101,7 @@ public class ServiceToken implements IServiceToken {
 
         Date currentDate = new Date();
 
-        DtoJWTUserToken<UUID> dbToken = repositoryToken.readByAccessToken(accessToken);
+        DtoJWTToken<UUID> dbToken = repositoryToken.readByAccessToken(accessToken);
         if(dbToken != null) {
             Jws<Claims> checkTokenData = UtilJWTToken.decodeToken(dbToken.getSecret(), accessToken);
 

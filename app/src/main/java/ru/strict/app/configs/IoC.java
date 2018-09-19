@@ -51,7 +51,7 @@ public class IoC {
     }
 
     @Bean
-    public IRepositoryUser<UUID, DtoUser> getRepositoryUser() {
+    public IRepositoryUser<UUID, DtoUser<UUID>> getRepositoryUser() {
         return new ru.strict.db.spring.repositories.RepositoryUser(
                 new CreateConnectionByDataSource(getDataSource()),
                 new MapperDtoFactory().instance(MapperDtoType.USER),
@@ -60,7 +60,7 @@ public class IoC {
     }
 
     @Bean
-    public IRepositoryExtension<UUID, DtoProfile> getRepositoryProfile(){
+    public IRepositoryExtension<UUID, DtoProfile<UUID>> getRepositoryProfile(){
         return new RepositoryProfile(
                 new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
@@ -68,7 +68,7 @@ public class IoC {
     }
 
     @Bean
-    public IRepositoryNamed<UUID, DtoRoleuser> getRepositoryRoleuser() {
+    public IRepositoryNamed<UUID, DtoRoleuser<UUID>> getRepositoryRoleuser() {
         return new RepositoryRoleuser(
                 new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
@@ -76,7 +76,7 @@ public class IoC {
     }
 
     @Bean
-    public IRepositoryExtension<UUID, DtoUserOnRole> getRepositoryUserOnRole(){
+    public IRepositoryExtension<UUID, DtoUserOnRole<UUID>> getRepositoryUserOnRole(){
         return new RepositoryUserOnRole(
                 new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
@@ -85,7 +85,7 @@ public class IoC {
 
     @Bean
     public IRepositoryJWTToken<UUID> getRepositoryJWTToken() {
-        return new RepositoryJWTUserToken<>(
+        return new RepositoryJWTToken<>(
                 new CreateConnectionByDataSource(getDataSource()),
                 GenerateIdType.NONE
         );
