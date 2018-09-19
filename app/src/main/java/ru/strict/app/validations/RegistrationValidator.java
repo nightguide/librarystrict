@@ -16,7 +16,7 @@ import java.util.UUID;
 public class RegistrationValidator implements Validator{
 
     @Autowired
-    private IRepositoryUser<UUID, DtoUser> repositoryUser;
+    private IRepositoryUser<UUID, DtoUser<UUID>> repositoryUser;
 
     public boolean supports(Class<?> clazz) {
         return clazz.equals(SignUpViewModel.class);

@@ -29,7 +29,7 @@ public class ServiceAuthentication implements IServiceAuthentication {
     @Autowired
     private IServiceToken serviceToken;
     @Autowired
-    private IRepositoryNamed<UUID, DtoRoleuser> repositoryRoleuser;
+    private IRepositoryNamed<UUID, DtoRoleuser<UUID>> repositoryRoleuser;
 
     @Override
     public ResponseUserAuthentication authUser(RequestAuthUser request) {

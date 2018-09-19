@@ -14,7 +14,7 @@ public class DtoUserOnRole<ID> extends DtoBase<ID> {
     /**
      * Пользователь
      */
-    private DtoUser user;
+    private DtoUser<ID> user;
     /**
      * Идентификатор роли
      */
@@ -22,7 +22,7 @@ public class DtoUserOnRole<ID> extends DtoBase<ID> {
     /**
      * Роль пользователя
      */
-    private DtoRoleuser role;
+    private DtoRoleuser<ID> role;
 
     //<editor-fold defaultState="collapsed" desc="constructors">
     private void initialize(ID userId, ID roleId){
@@ -70,11 +70,11 @@ public class DtoUserOnRole<ID> extends DtoBase<ID> {
         this.userId = userId;
     }
 
-    public DtoUser getUser() {
+    public DtoUser<ID> getUser() {
         return user;
     }
 
-    public void setUser(DtoUser user) {
+    public void setUser(DtoUser<ID> user) {
         this.user = user;
     }
 
@@ -90,11 +90,11 @@ public class DtoUserOnRole<ID> extends DtoBase<ID> {
         this.roleId = roleId;
     }
 
-    public DtoRoleuser getRole() {
+    public DtoRoleuser<ID> getRole() {
         return role;
     }
 
-    public void setRole(DtoRoleuser role) {
+    public void setRole(DtoRoleuser<ID> role) {
         this.role = role;
     }
     //</editor-fold>
@@ -109,8 +109,7 @@ public class DtoUserOnRole<ID> extends DtoBase<ID> {
     public boolean equals(Object obj){
         if(obj!=null && obj instanceof DtoUserOnRole) {
             DtoUserOnRole object = (DtoUserOnRole) obj;
-            return super.equals(object) && userId.equals(object.getUserId()) && roleId.equals(object.getRoleId())
-                    && user.equals(object.getUser()) && role.equals(object.getRole());
+            return super.equals(object) && userId.equals(object.getUserId()) && roleId.equals(object.getRoleId());
         }else
             return false;
     }
@@ -118,7 +117,7 @@ public class DtoUserOnRole<ID> extends DtoBase<ID> {
     @Override
     public int hashCode(){
         int superHashCode = super.hashCode();
-        return UtilHashCode.createSubHashCode(superHashCode, userId, roleId, user, role);
+        return UtilHashCode.createSubHashCode(superHashCode, userId, roleId);
     }
     //</editor-fold>
 }
