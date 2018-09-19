@@ -1,22 +1,17 @@
 package ru.strict.app.validations;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.strict.app.models.registration.SignUpViewModel;
-import ru.strict.db.core.dto.DtoUser;
-import ru.strict.db.core.repositories.interfaces.IRepositoryUser;
+import ru.strict.services.interfaces.IServiceUser;
 import ru.strict.validates.ValidateBaseRegex;
 import ru.strict.validates.ValidateBaseValue;
-
-import java.util.UUID;
 
 @Component
 public class RegistrationValidator implements Validator{
 
-    @Autowired
-    private IRepositoryUser<UUID, DtoUser<UUID>> repositoryUser;
+    private IServiceUser serviceUser;
 
     public boolean supports(Class<?> clazz) {
         return clazz.equals(SignUpViewModel.class);
@@ -35,8 +30,7 @@ public class RegistrationValidator implements Validator{
                         "username.short",
                         "Логин слишком короткий. Введите не меньше 3 символов");
             }else{
-                DtoUser user =  repositoryUser.readByName(object.getUsername());
-                if(user != null){
+                if(serviceUser.readUserByName(object.getUsername()) != null){
                     errors.rejectValue("username",
                             "username.exists",
                             "Пользователь с таким логином уже существует");
@@ -72,7 +66,7 @@ public class RegistrationValidator implements Validator{
                         "email.notEmail",
                         "Введен некорректный email");
             }else{
-                if(repositoryUser.readByEmail(object.getEmail()) != null){
+                if(serviceUser.readUserByEmail(object.getEmail()) != null){
                     errors.rejectValue("email",
                             "email.exists",
                             "Пользователь с таким email уже существует");

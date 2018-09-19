@@ -7,12 +7,8 @@ import ru.strict.db.core.dto.DtoProfile;
 import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.core.dto.DtoUserOnRole;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
-import ru.strict.services.data.requests.RequestCreateToken;
 import ru.strict.services.data.requests.RequestCreateUser;
-import ru.strict.services.data.responses.ResponseCreateToken;
-import ru.strict.services.data.responses.ResponseUserRegistration;
 import ru.strict.services.interfaces.IServiceRegistration;
-import ru.strict.services.interfaces.IServiceToken;
 import ru.strict.utils.UtilData;
 import ru.strict.utils.UtilHash;
 
@@ -25,9 +21,6 @@ public class ServiceRegistration implements IServiceRegistration {
 
     @Autowired
     private IRepositoryUser repositoryUser;
-
-    @Autowired
-    private IServiceToken serviceToken;
 
     @Override
     public boolean createUser(RequestCreateUser request) {

@@ -6,7 +6,6 @@ import ru.strict.components.WrapperLogger;
 import ru.strict.db.core.dto.DtoRoleuser;
 import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.core.repositories.IRepositoryNamed;
-import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
 import ru.strict.db.repositories.interfaces.IRepositoryUser;
 import ru.strict.services.data.requests.RequestAuthUser;
 import ru.strict.services.data.requests.RequestCreateToken;
