@@ -17,6 +17,7 @@ import ru.strict.db.core.repositories.IRepositoryNamed;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
 import ru.strict.db.core.repositories.interfaces.IRepositoryUser;
 import ru.strict.db.spring.repositories.*;
+import ru.strict.file.data.AppEnvironment;
 import ru.strict.services.ServiceToken;
 import ru.strict.services.interfaces.IServiceToken;
 
@@ -28,12 +29,22 @@ import java.util.UUID;
 public class IoC {
 
     @Bean
+    public AppConfig getConfig(){
+        AppConfig.initialize(AppEnvironment.DEVELOPMENT);
+        return AppConfig.instance();
+    }
+
+    @Bean
     public DataSource getDataSource(){
+        AppConfig config = getConfig();
+        String databaseUrl = String.format("jdbc:postgresql://%s:%s/%s", config.getDatabaseHost(),
+                config.getDatabasePort(), config.getDatabaseName());
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(ConnectionByDbType.POSTGRESQL.getDriver());
-        dataSource.setUrl(ConnectionByDbType.POSTGRESQL.getUrl() + "librarystrict");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("postgres");
+        dataSource.setUrl(databaseUrl);
+        dataSource.setUsername(config.getDatabaseUsername());
+        dataSource.setPassword(config.getDatabasePassword());
         return dataSource;
     }
 
