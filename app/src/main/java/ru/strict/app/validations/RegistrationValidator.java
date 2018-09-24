@@ -1,5 +1,6 @@
 package ru.strict.app.validations;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,6 +12,7 @@ import ru.strict.validates.ValidateBaseValue;
 @Component
 public class RegistrationValidator implements Validator{
 
+    @Autowired
     private IServiceUser serviceUser;
 
     public boolean supports(Class<?> clazz) {
