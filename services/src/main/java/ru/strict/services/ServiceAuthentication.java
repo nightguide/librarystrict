@@ -2,7 +2,7 @@ package ru.strict.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.strict.components.WrapperLogger;
+import ru.strict.components.LoggerWrapper;
 import ru.strict.db.core.dto.DtoRoleuser;
 import ru.strict.db.core.dto.DtoUser;
 import ru.strict.db.core.repositories.IRepositoryNamed;
@@ -21,7 +21,7 @@ import java.util.UUID;
 @Service
 public class ServiceAuthentication implements IServiceAuthentication {
 
-    private static final WrapperLogger LOGGER = new WrapperLogger(ServiceAuthentication.class);
+    private static final LoggerWrapper LOGGER = new LoggerWrapper(ServiceAuthentication.class);
 
     @Autowired
     private IRepositoryUser repositoryUser;

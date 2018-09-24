@@ -4,8 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.strict.components.LoggerWrapper;
 import ru.strict.components.TokenInfo;
-import ru.strict.components.WrapperLogger;
 import ru.strict.db.core.dto.DtoJWTToken;
 import ru.strict.db.core.dto.DtoToken;
 import ru.strict.db.core.repositories.interfaces.IRepositoryJWTToken;
@@ -22,7 +22,7 @@ import java.util.UUID;
 @Service
 public class ServiceToken implements IServiceToken {
 
-    private static final WrapperLogger LOGGER = new WrapperLogger(ServiceToken.class);
+    private static final LoggerWrapper LOGGER = new LoggerWrapper(ServiceToken.class);
 
     @Autowired
     private IRepositoryJWTToken<UUID> repositoryToken;
