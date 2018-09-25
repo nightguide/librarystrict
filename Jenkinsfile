@@ -19,7 +19,15 @@ pipeline {
       }   
     }
     
-  
+   stage('Unit Tests') {
+      steps {
+       junit 'jstrict/jutils/target/surefire-reports/*.xml'
+ 
+      }
+        
+    }
+    
+    
   stage('Docker Build') {
       steps {
         sh 'docker build -t kub-ansible:5000/admin/librarystrict:$BUILD_NUMBER .'
