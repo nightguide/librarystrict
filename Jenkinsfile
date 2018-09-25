@@ -19,7 +19,7 @@ pipeline {
       }   
     }
     
-  
+  1
   stage('Docker Build') {
       steps {
         sh 'docker build -t kub-ansible:5000/admin/librarystrict:$BUILD_NUMBER .'
