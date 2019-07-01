@@ -1,0 +1,6 @@
+language: java
+script: mvn sonar:sonar \
+        -Dsonar.projectKey=nightguide_librarystrict \
+        -Dsonar.organization=nightguide-github \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.login=bc1d8d39d9ec998065e499fcb6d270f7e760b883
