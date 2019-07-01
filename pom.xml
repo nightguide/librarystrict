@@ -90,9 +90,4 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		</plugins>
 	</build>
 	
-<settings>
-    <pluginGroups>
-        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
-    </pluginGroups>
-</settings>
 </project>
