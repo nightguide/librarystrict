@@ -1,7 +1,7 @@
 language: java
 script: "cp .travis.settings.xml $HOME/.m2/settings.xml && mvn deploy"
-script: mvn sonar:sonar \
+script: "mvn sonar:sonar \
         -Dsonar.projectKey=nightguide_librarystrict \
         -Dsonar.organization=nightguide-github \
         -Dsonar.host.url=https://sonarcloud.io \
-        -Dsonar.login=bc1d8d39d9ec998065e499fcb6d270f7e760b883
+        -Dsonar.login=bc1d8d39d9ec998065e499fcb6d270f7e760b883"
